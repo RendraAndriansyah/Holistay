@@ -8,6 +8,7 @@ const App = () => {
     Router.push({pathname:`/auth/login`,query:{param:"ini param"}})
   }
   return (
+    // Buat dashboard
     <div>
       <Head></Head>
     <button onClick={()=>nextPage()}>test</button>
