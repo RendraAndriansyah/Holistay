@@ -1,7 +1,8 @@
-import React from "react";
+import React, { useState } from "react";
 import Swal from "sweetalert2";
 
 const AddProperty = () => {
+  const [name, setName] = useState("");
   return (
     <div className="flex flex-row h-full">
       <div className="basis 1/5  w-80 "></div>
