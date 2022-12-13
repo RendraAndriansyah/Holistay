@@ -41,12 +41,14 @@ const User = () => {
             alt="profile"
             className="flex m-auto w-72 h-72 mt-10 rounded-full"
           />
-          <h2 className="text-center pt-5 text-3xl">M Rendra Andriansyah</h2>
+          <h2 className="text-center border-alta-dark pt-5 text-3xl">
+            M Rendra Andriansyah
+          </h2>
         </div>
-        <div className="basis-2/3  ">
+        <div className="basis-2/3  text-alta-dark ">
           <div className="m-10">
             <h1 className="text-5xl font-semibold ">My profile</h1>
-            <hr className="mt-5 border-black border-2" />
+            <hr className="mt-5 border-alta-dark border-2" />
             <form action="">
               <div className="flex flex-row pt-8  ">
                 <div className="flex flex-col text-xl gap-5">
