@@ -1,6 +1,8 @@
 import React from 'react'
 import Router from 'next/router'
 import Head from 'next/head'
+import { BsFillCaretLeftFill } from "react-icons/bs";
+
 import Navbar from '../components/Navbar'
 import Layout from '../components/Layout'
 

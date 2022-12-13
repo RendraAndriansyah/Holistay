@@ -5,12 +5,11 @@ module.exports = {
     "./components/**/*.{js,ts,jsx,tsx}",
   ],
   theme: {
-    extend: {},
-    colors: {
-      'alta-dark': '#17345f',
-      'alta-light': '#f4f7fb',
-      'alta-white': '#ffffff',
-    },
+    extend: {
+      colors: {
+      "alta-dark": "#17345f",
+      "alta-light": "#f4f7fb",
+      "alta-white": "#ffffff",},},
   },
-  plugins: [require('daisyui')],
+  plugins: [require(`daisyui`)],
 }
