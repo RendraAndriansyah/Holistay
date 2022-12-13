@@ -12,8 +12,8 @@ const DetailProperty = () => {
     //detail property
     <Layout>
       <div className='mb-10 mx-10'>
-        <div className="h-screen bg-white w-full grid place-items-center">
-          <div className="hero-content bg-alta-light">
+        <div className="h-screen w-full grid place-items-center">
+          <div className="hero-content">
             <div className="">
               <h1 className="text-3xl font-bold text-black">Villa Premium A3</h1>
               <div className="rating">
@@ -27,9 +27,9 @@ const DetailProperty = () => {
                 <div className='w-[60%] px-3'>
                   <Image src={'/Home-1.jpg'} width={800} height={100} alt='gambar'/>
                 </div>
-                <div className='w-[40%] px-3 flex flex-col justify-center lg:justify-between'>
-                  <Image src={'/Home-1.jpg'} width={300} height={50} alt='gambar' className=''/>
-                  <Image src={'/Home-1.jpg'} width={300} height={50} alt='gambar'/>
+                <div className='w-[40%] px-3 flex flex-col'>
+                  <Image src={'/Home-1.jpg'} width={340} height={50} alt='gambar' className='pb-1'/>
+                  <Image src={'/Home-1.jpg'} width={340} height={50} alt='gambar' className=''/>
                 </div>
               </div>
               {/* <p className="py-2 text-black text-xl font-semibold">Fasilities : 2 guest - 2 bedrooom - 1 bath- fool kitchen</p>
@@ -46,7 +46,7 @@ const DetailProperty = () => {
             <div className='card w-96 h-48 p-5 border-2 border-alta-dark flex flex-col'>
               <h3 className='font-semibold text-black text-2xl'>$20.00/night</h3>
               <div className='flex w-full my-3 h-9'>
-                <input type="date" placeholder='Checkin' name="checkin" id="checkin" className='bg-alta-dark text-base text-alta-light border-2 border-alta-dark w-[50%]'/>
+                <input type="date" placeholder='Checkin' name="checkin" id="checkin" className='text-alta-dark border-2 border-alta-dark w-[50%]'/>
                 <input type="date" name="checkout" id="checkout" className='bg-white border-2 text-alta-dark date:text-alta-dark border-alta-dark w-[50%]'/>
               </div>
               <button className={`bg-alta-dark text-white h-9 rounded-lg ${isValid ? `hidden` : `block`}`} onClick={() => setIsValid(true)}>Check Validate</button>
@@ -67,7 +67,7 @@ const DetailProperty = () => {
 
         {/* Rating & Comments */}
         <div className='px-10 py-5'>
-          <div className="rating rating-lg underline">
+          <div className="rating rating-lg pb-8">
             <input type="radio" name="rating-2" className="mask mask-star-2 h-9 bg-orange-400" checked/><span className='text-alta-dark font-bold text-4xl mx-2'>4.81 - 12 Reviews</span>
           </div>  
             <div className='p-5'>

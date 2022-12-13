@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import Swal from "sweetalert2";
+import Layout from "../../components/Layout";
 
 const AddProperty = () => {
   const [name, setName] = useState("");
@@ -15,6 +16,7 @@ const AddProperty = () => {
   };
 
   return (
+    <Layout titlePage={'Add Property'}>
     <div className="flex flex-row h-full">
       <div className="basis 1/5  w-80 "></div>
       <div className=" w-full pt-10">
@@ -135,6 +137,7 @@ const AddProperty = () => {
         </div>
       </div>
     </div>
+    </Layout>
   );
 };
 

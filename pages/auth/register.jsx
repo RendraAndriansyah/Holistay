@@ -88,14 +88,14 @@ export default function Register() {
               </label>
             </div>
             <input type="file" placeholder="Choose Image File" 
-                  className="file:border-[#17345F] w-full bg-alta-light file:bg-[#17345F] file:h-full file:left-0 caret-[#17345F] text-[#17345F] h-9"
+                  className="file:border-[#17345F] w-full bg-alta-light px-3 file:bg-alta-dark file:text-white file:h-full file:left-0 caret-alta-dark text-alta-dark h-9"
                   onChange={(e) => setEmail(e.target.value)} />
             
               <div className='flex justify-center'>
-                <button className="bg-[#17345F] text-alta-light h-9 w-[110px] mt-10 rounded-lg ">Register</button>
+                <button className="bg-[#17345F] text-alta-light h-[45px] w-full mt-3 rounded-lg text-lg">Register</button>
               </div>
-              <p className='text-[#17345F] text-base mt-2'>Have an account ?
-              <a className='font-semibold cursor-pointer' onClick={() => Router.push({pathname:`/auth/login`})}>Login</a></p>
+              <p className='text-[#17345F] text-base mt-2'>Have an account ? 
+              <a className='font-semibold cursor-pointer' onClick={() => Router.push({pathname:`/auth/login`})}> Login</a></p>
               </div>
             </div>
           </div>

@@ -55,10 +55,10 @@ export default function Home() {
               </div>
               <a className='text-[#17345F] text-base'>Forgot Your Password?</a>
               <div className='flex justify-center'>
-                <button className="bg-[#17345F] text-alta-light h-[40px] w-[110px] mt-10 rounded-lg ">Login</button>
+                <button className="bg-[#17345F] text-alta-light h-[40px] w-[110px] mt-10 rounded-lg">Login</button>
               </div>
               <p className='text-[#17345F] text-base mt-3'>Dont have an account ?
-              <a className='font-semibold cursor-pointer' onClick={() => Router.push({pathname:`/auth/register`})}>Register</a></p>
+              <a className='font-semibold cursor-pointer' onClick={() => Router.push({pathname:`/auth/register`})}> Register</a></p>
               </div>
             </div>
           </div>

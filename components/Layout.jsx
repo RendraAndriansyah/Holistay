@@ -8,7 +8,7 @@ const Layout = ({children, titlePage}) => {
         <Head>
             <title>Airbnb || {titlePage}</title>
         </Head>
-        <main className='w-screen min-h-screen flex flex-col justify-between bg-alta-light'>
+        <main className='w-full min-h-full flex flex-col justify-between bg-alta-light'>
             <Navbar/>
             <div className='flex-1'>{children}</div>
         </main>

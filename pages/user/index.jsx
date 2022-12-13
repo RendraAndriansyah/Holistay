@@ -2,6 +2,7 @@ import React from "react";
 import Image from "next/image";
 import Swal from "sweetalert2";
 import { useCallback } from "react";
+import Layout from "../../components/Layout";
 
 const User = () => {
   const DellAcc = useCallback(() => {
@@ -31,8 +32,8 @@ const User = () => {
   }, []);
   return (
     //My profile
-    <>
-      <div className="flex flex-row h-screen">
+    <Layout titlePage='My Profile'>
+      <div className="flex flex-row h-full">
         <div className="basis-1/3 ">
           <Image
             src={"/sample.jpg"}
@@ -127,7 +128,7 @@ const User = () => {
                       <span className="mr-5">Female</span>
                     </div>
                   </label>
-                  <div className="flex flex-row justify-end pt-5 gap-5">
+                  <div className="flex flex-row justify-end gap-5">
                     <button className="border-2 border-alta-dark w-24 h-8 text-alta-dark rounded-md">
                       Cancel
                     </button>
@@ -147,7 +148,7 @@ const User = () => {
           </div>
         </div>
       </div>
-    </>
+    </Layout>
   );
 };
 
