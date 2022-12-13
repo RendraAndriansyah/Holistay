@@ -1,40 +1,32 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { MdEdit } from 'react-icons/md';
-import { HiOutlineSelector } from 'react-icons/hi';
+
 import { BiDetail } from 'react-icons/bi';
 import { MdDeleteForever } from 'react-icons/md';
+import Router from 'next/router'
 
 const Properties = () => {
   const [row, setRows] = useState([]);
-  const [loading, setLoading] = useState(false);
-  const [filter,setFilter]= useState("All Class")
-  const [filterStatus,setFilterStatus] = useState("All Status")
-  const [filterCate,setFilterCate] = useState("All Category")
+  const [loading, setLoading] = useState(true);
 
 
 
 
-  // const getRows = async () => {
-  //   await axios
-  //     .get(``, {
-  //       headers: {
-  //         Authorization: `Bearer `,
-  //       },
-  //     })
-  //     .then((res) => {
-  //       setLoading(true);
-
-  //       setRows(res.data.data);
-  //     });
-  // };
-
-  
+  const getRows = async () => {
+    await axios
+      .get(`https://virtserver.swaggerhub.com/ACHMADQIZWINI4_1/GP3_Kelompok3/1.0.0/properties`)
+      .then((res) => {
+        setRows(res.data.data);
+        setLoading(false);
+      });
+  };
 
   // console.log("ini data dari api",row)
-  // useEffect(() => {
-  //   getRows();
-  // }, []);
+  useEffect(() => {
+    getRows();
+  }, []);
+
   return (
     //List My Properties
     <div className="bg-alta-white w-full h-full">
@@ -42,7 +34,7 @@ const Properties = () => {
           <div>
           <div className="flex flex-row-reverse mx-16">
             <div className="rounded-box my-2">
-            <label htmlFor="my-modal-4" className="btn bg-alta-dark" onClick={()=>{("")}}>ADD NEW PROPERTIES</label>
+            <label htmlFor="my-modal-4" className="btn bg-alta-dark" onClick={()=>{Router.push({pathname:`/user/addproperty`})}}>ADD NEW PROPERTIES</label>
             </div>
                 
             </div>
@@ -58,29 +50,28 @@ const Properties = () => {
                       <th>PROPERTIES</th>
                       <th>PRICES</th>
                       <th>CITY</th>
-                      <th>CONTACT</th>
+                      <th>RATINGS</th>
                       <th>DETAIL</th>
                       <th>EDIT</th>
                       <th>DELETE</th>
                     </tr>
                   </thead>
-                  {/* {row && loading === true ? (
-                    map(() => {
-                      return (
-                        <tbody className="text-center">
+                  <tbody className="text-center">
+                    {row && loading == false ? (
+                      row.map((item) => (
                           <tr className="hover text-alta-dark">
-                            <th></th>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
+                            <th>{item.id}</th>
+                            <td>{item.property_name}</td>
+                            <td>{item.price_per_night}</td>
+                            <td>{item.city}</td>
+                            <td>{item.rating_average}</td>
                             <td>
-                              <button onClick={() => ('')}>
+                              <button onClick={() =>{Router.push({pathname:`/property`})}}>
                                 <BiDetail />
                               </button>
                             </td>
                             <td>
-                              <button onClick={() => ('')}>
+                              <button >
                                 <MdEdit />
                               </button>
                             </td>
@@ -90,14 +81,14 @@ const Properties = () => {
                               </button>
                             </td>
                           </tr>
-                        </tbody>
-                      );
-                    })
-                  ) : (
-                    <div>
-                      <h1>Memuat......</h1>
-                    </div>
-                  )} */}
+                        )
+                      )
+                    ) : (
+                      <tr>
+                        <td>Memuat......</td>
+                      </tr>
+                    )}
+                  </tbody>
                 </table>
               </div>
             </div>
@@ -107,7 +98,7 @@ const Properties = () => {
             <div className="btn-group flex  place-items-center justify-center gap-2">
               <button className="btn hover:text-white hover:bg-alta-dark bg-white text-alta-dark ">Prev</button>
               <button className="bg-white hover:text-white hover:bg-alta-dark border text-black btn-circle border-alta-dark">1</button>
-              <button className="border-none  bg-white hover:text-white hover:bg-alta-dark btn-circle  ">2</button>
+              <button className="border-none  bg-white hover:text-white hover:bg-alta-dark btn-circle">2</button>
               <button className="border-none  bg-white hover:text-white hover:bg-alta-dark btn-circle">3</button>
               <button className="border-none  bg-white hover:text-white hover:bg-alta-dark btn-circle">4</button>
               <button className="border-none  bg-white hover:text-white hover:bg-alta-dark btn-circle">5</button>
