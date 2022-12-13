@@ -33,7 +33,7 @@ const User = () => {
     //My profile
     <>
       <div className="flex flex-row h-screen">
-        <div className="basis-1/3 bg-sky-300 ">
+        <div className="basis-1/3 ">
           <Image
             src={"/sample.jpg"}
             width={250}
@@ -43,12 +43,12 @@ const User = () => {
           />
           <h2 className="text-center pt-5 text-3xl">M Rendra Andriansyah</h2>
         </div>
-        <div className="basis-2/3 bg-red-200  ">
+        <div className="basis-2/3  ">
           <div className="m-10">
             <h1 className="text-5xl font-semibold ">My profile</h1>
             <hr className="mt-5 border-black border-2" />
             <form action="">
-              <div className="flex flex-row pt-8 bg-yellow-200 ">
+              <div className="flex flex-row pt-8  ">
                 <div className="flex flex-col text-xl gap-5">
                   <label
                     htmlFor=""
