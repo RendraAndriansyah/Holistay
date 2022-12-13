@@ -1,7 +1,5 @@
 import React from 'react'
 import Router from 'next/router'
-import Head from 'next/head'
-import Navbar from '../components/Navbar'
 import Layout from '../components/Layout'
 
 
