@@ -2,16 +2,17 @@ import React from 'react'
 import Head from 'next/head'
 import Navbar from './Navbar'
 
-const Layout = (titlePage) => {
+const Layout = ({children, titlePage}) => {
   return (
-    <div>
+    <>
         <Head>
             <title>Airbnb || {titlePage}</title>
         </Head>
-        <div>
+        <main className='w-screen min-h-screen flex flex-col justify-between bg-alta-light'>
             <Navbar/>
-        </div>
-    </div>
+            <div className='flex-1'>{children}</div>
+        </main>
+    </>
   )
 }
 
