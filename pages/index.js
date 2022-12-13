@@ -1,6 +1,7 @@
 import React from 'react'
 import Router from 'next/router'
 import Head from 'next/head'
+import {BsFillCaretLeftFill} from 'react-icons/bs'
 
 
 const App = () => {
@@ -11,11 +12,9 @@ const App = () => {
     // Buat dashboard
     <div>
       <Head></Head>
-      <div>
-      <Head></Head>
     <div className="flex flex-row-reverse mx-16">
     <div className="rounded-box my-10">
-    <label htmlFor="my-modal-4" className="btn bg-alta-dark" onClick={()=>{navi("/mentee/add/page")}}>ADD NEW</label>
+    <label htmlFor="my-modal-4" className="btn bg-alta-dark" onClick={()=>{}}>ADD NEW</label>
     </div>
         <div className="my-10">
         <button className="mx-1 bg-slate-200 btn btn-ghost btn-box ">
@@ -28,19 +27,6 @@ const App = () => {
         <input type="text" placeholder="Search" className="input input-bordered" />
       </div>
     </div>
-    <div>
-      <div className="drawer drawer-end">
-  <input id="my-drawer-4" type="checkbox" className="drawer-toggle" />
-  <div className="drawer-content">
-    <label htmlFor="my-drawer-4" className="drawer-button btn btn-primary "> <BsFillCaretLeftFill/> </label>
-  </div> 
-  <div className="drawer-side">
-    <label htmlFor="my-drawer-4" className="drawer-overlay"></label>
-     <img className="menu p-4  bg-base-100 text-base-content h-full" src="https://static1.anpoimages.com/wordpress/wp-content/uploads/2022/07/googleMapsTricksHero.jpg" alt="" />
-  </div>
-</div>
-</div>
-      </div>
     </div>
   )
 }
