@@ -3,6 +3,17 @@ import Swal from "sweetalert2";
 
 const AddProperty = () => {
   const [name, setName] = useState("");
+
+  const alertDone = () => {
+    Swal.fire({
+      position: "center",
+      icon: "success",
+      text: "Properties successfully added",
+      showConfirmButton: false,
+      timer: 2000,
+    });
+  };
+
   return (
     <div className="flex flex-row h-full">
       <div className="basis 1/5  w-80 "></div>
@@ -10,7 +21,7 @@ const AddProperty = () => {
         <h2 className="text-3xl font-semibold text-alta-dark">
           Add New Properties
         </h2>
-        <form action="">
+        <div action="">
           <div className="flex flex-row pt-8  ">
             <div className="flex flex-col text-xl gap-5">
               <label
@@ -114,20 +125,14 @@ const AddProperty = () => {
                 </button>
                 <button
                   className="bg-alta-dark w-24 h-8 text-white rounded-md"
-                  onClick={Swal.fire({
-                    position: "center",
-                    icon: "success",
-                    text: "Properties successfully added",
-                    showConfirmButton: false,
-                    timer: 2000,
-                  })}
+                  onClick={() => alertDone()}
                 >
                   Save
                 </button>
               </div>
             </div>
           </div>
-        </form>
+        </div>
       </div>
     </div>
   );
