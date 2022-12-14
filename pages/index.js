@@ -4,6 +4,8 @@ import Head from 'next/head'
 import {HiOutlineSelector} from 'react-icons/hi'
 import {AiFillStar} from 'react-icons/ai'
 import axios from 'axios'
+import Layout from '../components/Layout'
+
 
 
 const App = () => {
