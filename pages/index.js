@@ -5,6 +5,7 @@ import {HiOutlineSelector} from 'react-icons/hi'
 import {AiFillStar} from 'react-icons/ai'
 import axios from 'axios'
 import Layout from '../components/Layout'
+import {MdOutlineKeyboardArrowRight, MdOutlineKeyboardArrowLeft} from 'react-icons/md'
 
 
 
@@ -13,6 +14,18 @@ const App = () => {
   const [filterCate,setFilterCate] = useState("PROTOTYPE TYPE")
   const [loading,setLoading]=useState(true)
   const [image,setImage]=useState()
+  const [currentPage, setCurrentPage] = useState(1)
+  const [dataPerPage, setdataPerPage] = useState(2)
+  const lastIndex = currentPage * dataPerPage
+  const firstIndex = lastIndex - dataPerPage
+  const current = image?.slice(firstIndex, lastIndex)
+  const maxPage = Math.ceil(image?.length / dataPerPage)
+  const pages = []
+  for(let i = 1; i <= maxPage; i++){pages.push(i)}
+  // const disabled = currentPage === Math.ceil(image?.length / dataPerPage) ? true : false;
+  // const disableBack = currentPage === 1 ? true : false
+  const paginateBack = () => {currentPage > 1 && setCurrentPage(currentPage - 1)}
+  const paginateFront=() => setCurrentPage(currentPage + 1)
 
   const nextPage = () =>{
     Router.push({pathname:`/property`,query:{param:"ini param"}});
@@ -34,8 +47,7 @@ const App = () => {
 
   return (
     // Buat dashboard
-    <div>
-      <Head></Head>
+    <Layout titlePage={'Home'}>
     <div className="flex  mx-16 my-5">
       <h1 className='flex flex-1 text-5xl text-alta-dark font-bold'>STAYS</h1>
         <div className="flex-row-reverse">
@@ -92,35 +104,39 @@ const App = () => {
                 </div>
               </div>
             </div>
-            {image && loading === true ?(image.map((item)=>{return(
-            <div className="card card-side bg-base-100 hover:bg-alta-light" onClick={()=>{nextPage()}}>
-  <img className='shadow-2xl m-4' width={200} src={item.image_thumbnail_url} alt="Movie"/>
-  <div className="card-body">
-    <h2 className="card-title">{item.property_name}</h2>
-    <p className='flex flex-wrap gap-1'><AiFillStar size={30}/>{item.rating_average}</p>
-    <div className="card-actions justify-start">
-    <h2 className="card-title">{item.facilities}</h2>
-    </div>
-  </div>
-</div>)})
-            ): ( <div>
+            {current && loading === true ?(current.map((item)=>{return(
+              <div key={item.id} className="card card-side bg-white hover:bg-slate-200" onClick={()=>{nextPage()}}>
+                <img className='shadow-2xl m-4' width={200} src={item.image_thumbnail_url} alt="Movie"/>
+                <div className="card-body">
+                  <h2 className="card-title">{item.property_name}</h2>
+                  <p className='flex flex-wrap gap-1'><AiFillStar size={30}/>{item.rating_average}</p>
+                  <div className="card-actions justify-start">
+                  <h2 className="card-title">{item.facilities}</h2>
+                  </div>
+                </div>
+              </div>)})       
+              ): ( <div>
                       <h1>Memuat......</h1>
                     </div>)}
            
-<div className="p-5">
-              <p className="text-center pt-5 text-alta-dark">Showing 1 to 3</p>
+            <div className="p-5">
+              <p className="text-center pt-5 text-alta-dark">Showing 1 to {maxPage}</p>
             </div>
             <div className="btn-group flex  place-items-center justify-center gap-2">
               <button className="btn hover:text-white hover:bg-alta-dark bg-white text-alta-dark ">Prev</button>
-              <button className="bg-white hover:text-white hover:bg-alta-dark border text-black btn-circle border-alta-dark">1</button>
-              <button className="border-none  bg-white hover:text-white hover:bg-alta-dark btn-circle  ">2</button>
-              <button className="border-none  bg-white hover:text-white hover:bg-alta-dark btn-circle">3</button>
-              <button className="border-none  bg-white hover:text-white hover:bg-alta-dark btn-circle">4</button>
-              <button className="border-none  bg-white hover:text-white hover:bg-alta-dark btn-circle">5</button>
-
+              {
+                pages?.map((page,index) => {
+                  return (
+                  <button key={index} className="peer peer-focus:bg-white focus:bg-alta-dark border border-alta-dark bg-white hover:text-white hover:bg-alta-dark btn-circle"
+                    onClick={() => setCurrentPage(page)}>{page}</button>
+                  )
+                })
+              }
               <button className="btn hover:text-white hover:bg-alta-dark bg-white text-alta-dark">Next</button>
             </div>
-    </div>
+
+
+    </Layout>
   )
 }
 

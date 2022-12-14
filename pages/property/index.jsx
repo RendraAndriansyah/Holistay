@@ -46,7 +46,7 @@ const DetailProperty = () => {
             <div className='card w-96 h-48 p-5 border-2 border-alta-dark flex flex-col'>
               <h3 className='font-semibold text-black text-2xl'>$20.00/night</h3>
               <div className='flex w-full my-3 h-9'>
-                <input type="date" placeholder='Checkin' name="checkin" id="checkin" className='text-alta-dark border-2 border-alta-dark w-[50%]'/>
+                <input type="date" placeholder='Checkin' name="checkin" id="checkin" className='bg-white text-alta-dark border-2 border-alta-dark w-[50%]'/>
                 <input type="date" name="checkout" id="checkout" className='bg-white border-2 text-alta-dark date:text-alta-dark border-alta-dark w-[50%]'/>
               </div>
               <button className={`bg-alta-dark text-white h-9 rounded-lg ${isValid ? `hidden` : `block`}`} onClick={() => setIsValid(true)}>Check Validate</button>
