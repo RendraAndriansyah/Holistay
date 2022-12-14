@@ -27,8 +27,8 @@ const App = () => {
   const paginateBack = () => {currentPage > 1 && setCurrentPage(currentPage - 1)}
   const paginateFront=() => setCurrentPage(currentPage + 1)
 
-  const nextPage = () =>{
-    Router.push({pathname:`/property`,query:{param:"ini param"}});
+  const nextPage = (id) =>{
+    Router.push({pathname:`/property`,query:{param:id}});
   }
   
   const getImg = () => {
@@ -105,7 +105,7 @@ const App = () => {
               </div>
             </div>
             {current && loading === true ? (current.map((item)=>{return(
-              <div key={item.id} className="card card-side bg-white hover:bg-slate-200" onClick={()=>{nextPage()}}>
+              <div key={item.id} className="card card-side bg-white hover:bg-slate-200" onClick={()=>{nextPage(item.id)}}>
                 <img className='shadow-2xl m-4' width={200} src={item.image_thumbnail_url} alt="Movie"/>
                 <div className="card-body">
                   <h2 className="card-title">{item.property_name}</h2>
