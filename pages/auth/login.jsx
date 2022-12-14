@@ -5,13 +5,35 @@ import { FaRegEye } from 'react-icons/fa';
 import { FaRegEyeSlash } from 'react-icons/fa';
 import { useCookies } from 'react-cookie'
 import Router from 'next/router';
+import axios from 'axios'
 
 export default function Home() {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [seePwd, setSeePwd] = useState(false)
   const [cookie, setCookie] = useCookies();
+
+  const onLogin =async() => {
+    // const response = await api.login({email,password})
+    // const data = response
+    const data = {email : email, password : password}
+    await axios.post(`https://irisminty.my.id/auth`, data)
+    .then(res => {
+      console.log(res.data)
+      setCookie("name", res.data.data.full_name)
+      setCookie("token", res.data.data.token)
+      setCookie("id", res.data.data.id)
+      setCookie("image", res.data.data.profile_image_url)
+      Router.push({pathname : '/'})
+    })
+    .catch(err => {
+      console.log(err)
+    })
+    // console.log(data)
+  }
   
+  console.log(email)
+  console.log(password)
   return (
       <div className='min-h-screen w-screen bg-alta-light grid place-items-center'>
         <div className='rounded-[94px] w-[85vw] h-[90vh] bg-[#17345F] p-10 flex'>
@@ -55,7 +77,7 @@ export default function Home() {
               </div>
               <a className='text-[#17345F] text-base'>Forgot Your Password?</a>
               <div className='flex justify-center'>
-                <button className="bg-[#17345F] text-alta-light h-[40px] w-[110px] mt-10 rounded-lg">Login</button>
+                <button className="bg-[#17345F] text-alta-light h-[40px] w-[110px] mt-10 rounded-lg" onClick={() => onLogin()}>Login</button>
               </div>
               <p className='text-[#17345F] text-base mt-3'>Dont have an account ?
               <a className='font-semibold cursor-pointer' onClick={() => Router.push({pathname:`/auth/register`})}> Register</a></p>
