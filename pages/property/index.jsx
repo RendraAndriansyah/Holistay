@@ -12,6 +12,8 @@ const DetailProperty = () => {
   const [comments, setComments] = useState('')
   const [property, setProperty] = useState('')
   const [users, setUsers] = useState('')
+  const [checkin, setCheckin] = useState('')
+  const [checkout, setCheckout] = useState('')
   const [cookie, setCookie] = useCookies()
   const auth = cookie.token
   const router = useRouter()
@@ -45,6 +47,10 @@ const DetailProperty = () => {
       setUsers(res.data.data)
     })
     .catch(err => console.log(err))
+  }
+  const checkValidate = () => {
+    console.log(checkin.split('-').reverse().join('-'))
+    console.log(checkout.split('-').reverse().join('-'))
   }
   const onReserve = () => {
     console.log('Reserve')
@@ -104,10 +110,10 @@ const DetailProperty = () => {
             <div className='card w-96 h-48 p-5 border-2 border-alta-dark flex flex-col'>
               <h3 className='font-semibold text-black text-2xl'>${property.price_per_night} /night</h3>
               <div className='flex w-full my-3 h-9'>
-                <input type="date" placeholder='Checkin' name="checkin" id="checkin" className='bg-white text-alta-dark border-2 border-alta-dark w-[50%]'/>
-                <input type="date" name="checkout" id="checkout" className='bg-white border-2 text-alta-dark date:text-alta-dark border-alta-dark w-[50%]'/>
+                <input type="date" placeholder='Checkin' name="checkin" id="checkin" className='bg-white text-alta-dark border-2 border-alta-dark w-[50%]' onChange={(e) => setCheckin(e.target.value)} data-date-format="DD-MM-YYYY"/>
+                <input type="date" name="checkout" id="checkout" className='bg-white border-2 text-alta-dark date:text-alta-dark border-alta-dark w-[50%]' onChange={(e) => setCheckout(e.target.value)} />
               </div>
-              <button className={`bg-alta-dark text-white h-9 rounded-lg ${isValid ? `hidden` : `block`}`} onClick={() => setIsValid(true)}>Check Validate</button>
+              <button className={`bg-alta-dark text-white h-9 rounded-lg ${isValid ? `hidden` : `block`}`} onClick={() => checkValidate()}>Check Validate</button>
               <button className={`bg-alta-dark text-white h-9 rounded-lg ${isValid ? `block` : `hidden`}`} onClick={() => onReserve()}>Reserve</button>
             </div>
             <div className={`card w-96 h-48 p-5 border-2 border-alta-dark flex flex-col divide-y-2 divide-alta-dark my-3 ${isValid ? `block` : `hidden`}`}>
@@ -126,7 +132,7 @@ const DetailProperty = () => {
         {/* Rating & Comments */}
         <div className='px-10 py-5'>
           <div className="rating rating-lg pb-8">
-            <input type='radio' name="rating-2" className="mask mask-star-2 h-9 bg-orange-400" checked/><span className='text-alta-dark font-bold text-4xl mx-2'>{property.rating_average.toFixed(2)} - {comments?.length || `0`} Reviews</span>
+            <input type='radio' name="rating-2" className="mask mask-star-2 h-9 bg-orange-400" checked/><span className='text-alta-dark font-bold text-4xl mx-2'>{property?.rating_average?.toFixed(2)} - {comments?.length || `0`} Reviews</span>
           </div>
           {comments && comments !== null ?
             comments.map((comment) => {
