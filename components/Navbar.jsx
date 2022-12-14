@@ -1,14 +1,19 @@
-import React from 'react'
+import React, { useState } from 'react'
 import Image from 'next/image'
 import Router from 'next/router'
 import { useCookies } from 'react-cookie'
 
 const Navbar = () => {
   const [cookie, removeCookie] = useCookies();
+  const [auth, setAuth] = useState(cookie.token)
+  const [name, setName] = useState(cookie.name)
+  const [image, setImage] = useState(cookie.image)
 
   const onLogout = () => {
       removeCookie("name")
       removeCookie("token")
+      removeCookie("image")
+      removeCookie("id")
       Router.push({pathname:`/auth/login`})
   }
   return (
@@ -19,12 +24,12 @@ const Navbar = () => {
         </a>
       </div>
       <div className="flex-none gap-2">
-        <p className='text-lg font-semibold text-alta-light'>{cookie.name}</p>
+        {/* <p className='text-lg font-semibold text-alta-light'>{name}</p> */}
         <div className="dropdown dropdown-end">
           <label tabIndex={0} className="btn btn-ghost btn-circle avatar border border-alta-light">
             <div className="w-10 rounded-full">
               {/* <img src="https://placeimg.com/80/80/people" /> */}
-              <img src={cookie.image} />
+              <img src={image} />
             </div>
               
           </label>
