@@ -104,7 +104,7 @@ const App = () => {
                 </div>
               </div>
             </div>
-            {current && loading === true ?(current.map((item)=>{return(
+            {current && loading === true ? (current.map((item)=>{return(
               <div key={item.id} className="card card-side bg-white hover:bg-slate-200" onClick={()=>{nextPage()}}>
                 <img className='shadow-2xl m-4' width={200} src={item.image_thumbnail_url} alt="Movie"/>
                 <div className="card-body">
@@ -134,8 +134,6 @@ const App = () => {
               }
               <button className="btn hover:text-white hover:bg-alta-dark bg-white text-alta-dark">Next</button>
             </div>
-
-
     </Layout>
   )
 }

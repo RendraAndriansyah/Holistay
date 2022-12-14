@@ -4,6 +4,7 @@ import { FaRegEye } from 'react-icons/fa';
 import { FaRegEyeSlash } from 'react-icons/fa';
 import { useCookies } from 'react-cookie'
 import Router from 'next/router';
+import axios from 'axios'
 
 export default function Register() {
   const [name, setName] = useState('')
@@ -11,9 +12,53 @@ export default function Register() {
   const [password, setPassword] = useState('')
   const [phone, setPhone] = useState('')
   const [gender, setGender] = useState('')
+  const [file, setFile] = useState('')
   const [seePwd, setSeePwd] = useState(false)
   const [cookie, setCookie] = useCookies();
-  
+
+  const dataRegister = { 
+    full_name : name,
+    email : email,
+    password : password,
+    phone : phone,
+    gender : gender,
+    file : file
+  }
+
+  const onRegister = async() => {
+    const formData = new FormData()
+    // Object.keys(dataRegister).forEach((key) => {
+    //   formData.append(key, dataRegister[key])
+    // })
+    // formData.append('full_name', name)
+    // formData.append('email', email)
+    // formData.append('password', password)
+    // formData.append('phone', phone)
+    // formData.append('gender', gender)
+    formData.append('file', file)
+
+    
+    console.log([...formData])
+
+    // await axios.post(`https://irisminty.my.id/users`,{
+    //   headers: {
+    //     "Content-type": "multipart/form-data",
+    //   },
+    //   data : {formData}
+    // })
+    // } 
+    await axios.post(`https://irisminty.my.id/users`, {data: {
+      full_name : name,
+      email :  email,
+      password : password,
+      phone :  phone,
+      gender : gender,
+      file : formData
+    }} , {headers: {"Content-type": "multipart/form-data"}})
+    .then(res => console.log(res))
+    .catch(err => console.log(err))
+  }
+  // console.log(file)
   return (
       <div className='min-h-screen w-screen bg-alta-light grid place-items-center'>
         <div className='rounded-[94px] w-[90vw] h-[95vh] bg-[#17345F] p-10 flex'>
@@ -67,9 +112,9 @@ export default function Register() {
                 <label className="label text-[#17345F]">
                   <span className="label-text text-[#17345F]">Phone</span>
                 </label>
-                <input type="email" placeholder="0899-9999-9999" 
+                <input type="email" placeholder="089999999999" 
                   className="input input-bordered border-[#17345F] w-full bg-alta-light caret-[#17345F] text-[#17345F] h-9"
-                  onChange={(e) => setPhone(e.target.value)} pattern="[0-9]{4}-[0-9]{4}-[0-9]{4}"/>
+                  onChange={(e) => setPhone(e.target.value)} pattern="[0-9]{12}"/>
               </div>
               <div className='h-12 flex justify-start' id='gender'>
               <label className="label cursor-pointer peer-checked/male:text-[#17345F]" for='male'>
@@ -89,10 +134,10 @@ export default function Register() {
             </div>
             <input type="file" placeholder="Choose Image File" 
                   className="file:border-[#17345F] w-full bg-alta-light px-3 file:bg-alta-dark file:text-white file:h-full file:left-0 caret-alta-dark text-alta-dark h-9"
-                  onChange={(e) => setEmail(e.target.value)} />
+                  onChange={(e) => setFile(e.target.files[0])} />
             
               <div className='flex justify-center'>
-                <button className="bg-[#17345F] text-alta-light h-[45px] w-full mt-3 rounded-lg text-lg">Register</button>
+                <button className="bg-[#17345F] text-alta-light h-[45px] w-full mt-3 rounded-lg text-lg" onClick={() => onRegister()}>Register</button>
               </div>
               <p className='text-[#17345F] text-base mt-2'>Have an account ? 
               <a className='font-semibold cursor-pointer' onClick={() => Router.push({pathname:`/auth/login`})}> Login</a></p>
