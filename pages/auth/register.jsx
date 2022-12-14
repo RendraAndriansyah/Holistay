@@ -27,17 +27,10 @@ export default function Register() {
 
   const onRegister = async() => {
     const formData = new FormData()
-    // Object.keys(dataRegister).forEach((key) => {
-    //   formData.append(key, dataRegister[key])
-    // })
-    // formData.append('full_name', name)
-    // formData.append('email', email)
-    // formData.append('password', password)
-    // formData.append('phone', phone)
-    // formData.append('gender', gender)
     formData.append('file', file)
 
     
+    console.log([...formData])
     console.log([...formData])
 
     // await axios.post(`https://irisminty.my.id/users`,{
@@ -47,14 +40,16 @@ export default function Register() {
     //   data : {formData}
     // })
     // } 
-    await axios.post(`https://irisminty.my.id/users`, {data: {
+    await axios.post(`https://irisminty.my.id/users`, {
       full_name : name,
       email :  email,
       password : password,
       phone :  phone,
       gender : gender,
       file : formData
-    }} , {headers: {"Content-type": "multipart/form-data"}})
+    } 
+    , {headers: {"Content-type": "multipart/form-data"}}
+    )
     .then(res => console.log(res))
     .catch(err => console.log(err))
   }
