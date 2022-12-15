@@ -30,8 +30,9 @@ const App = () => {
   const paginateBack = () => {currentPage > 1 && setCurrentPage(currentPage - 1)}
   const paginateFront =() => setCurrentPage(currentPage + 1)
 
-  const nextPage = () =>{
-    Router.push({pathname:`/property`,query:{param:"ini param"}});
+
+  const nextPage = (id) =>{
+    Router.push({pathname:`/property`,query:{param:id}});
   }
   
  
@@ -56,7 +57,6 @@ const App = () => {
   return (
     // Buat dashboard
     <Layout titlePage={'Home'}>
-     <div> {cookie.name}</div>
     <div className="flex  mx-16 my-5">
       <h1 className='flex flex-1 text-5xl text-alta-dark font-bold'>STAYS</h1>
         <div className="flex-row-reverse">
@@ -159,13 +159,7 @@ const App = () => {
                   <h2 className="card-title">{item?.facilities}</h2>
                   </div>
                 </div>
-              </div>)})       
-              ): ( <div>
-                      <h1>Memuat......</h1>
-                    </div>)}
-           
-            <div className="p-5">
-              <p className="text-center pt-5 text-alta-dark">Showing 1 to {maxPage}</p>
+              </div>
             </div>
             <div className="btn-group flex  place-items-center justify-center gap-2">
               <button className="btn hover:text-white hover:bg-alta-dark bg-white text-alta-dark " onClick={()=>paginateBack()}>Prev</button>
@@ -183,4 +177,32 @@ const App = () => {
   )
 }
 
-export default App
+      <div className="p-5">
+        <p className="text-center pt-5 text-alta-dark">
+          Showing 1 to {maxPage}
+        </p>
+      </div>
+      <div className="btn-group flex  place-items-center justify-center gap-2">
+        <button className="btn hover:text-white hover:bg-alta-dark bg-white text-alta-dark ">
+          Prev
+        </button>
+        {pages?.map((page, index) => {
+          return (
+            <button
+              key={index}
+              className="peer peer-focus:bg-white focus:bg-alta-dark border border-alta-dark bg-white hover:text-white hover:bg-alta-dark btn-circle"
+              onClick={() => setCurrentPage(page)}
+            >
+              {page}
+            </button>
+          );
+        })}
+        <button className="btn hover:text-white hover:bg-alta-dark bg-white text-alta-dark">
+          Next
+        </button>
+      </div>
+    </Layout>
+  );
+};
+
+export default App;
