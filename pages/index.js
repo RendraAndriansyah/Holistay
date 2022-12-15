@@ -32,9 +32,18 @@ const App = () => {
   };
   const paginateFront = () => setCurrentPage(currentPage + 1);
 
-  const nextPage = () => {
-    Router.push({ pathname: `/property`, query: { param: "ini param" } });
-  };
+
+  const nextPage = (id) =>{
+    Router.push({pathname:`/property`,query:{param:id}});
+  }
+  
+  const getImg = () => {
+    axios .get('https://virtserver.swaggerhub.com/ACHMADQIZWINI4_1/GP3_Kelompok3/1.0.0/properties')
+    .then((res)=>{
+      setLoading(true);
+      setImage(res.data.data)
+    })
+  }
 
   const getImg = () => {
     axios
@@ -141,29 +150,58 @@ const App = () => {
           </div>
         </div>
       </div>
-      {current && loading === true ? (
-        current.map((item) => {
-          return (
-            <div
-              key={item.id}
-              className="card card-side bg-white hover:bg-slate-200"
-              onClick={() => {
-                nextPage();
-              }}
-            >
-              <img
-                className="shadow-2xl m-4"
-                width={200}
-                src={item.image_thumbnail_url}
-                alt="Movie"
-              />
-              <div className="card-body">
-                <h2 className="card-title">{item.property_name}</h2>
-                <p className="flex flex-wrap gap-1">
-                  <AiFillStar size={30} />
-                  {item.rating_average}
-                </p>
-                <div className="card-actions justify-start">
+
+    </div>
+    <div className="border-b-2"></div>
+            <div className="grid justify-end">
+              <div className="mr-20 mt-5">
+                <div className=" dropdown dropdown-bottom  rounded-box text-alta-dark">
+                  <label tabIndex={0} className=" bg-white text-alta-dark m-1 btn hover:text-white hover:bg-alta-dark ">
+                    {filter} <HiOutlineSelector className="mx-1" />
+                  </label>
+                  <ul tabIndex={0} className="dropdown-content menu p-2 bg-base-100 rounded-box w-52">
+                    <li>
+                      <a onClick={() => setFilter('ALL CLASS')}>ALL CLASS</a>
+                    </li>
+                    <li>
+                      <a onClick={() => setFilter('QE 7')}>QE 7</a>
+                    </li>
+                    <li>
+                      <a onClick={() => setFilter('BE 6')}>BE 6</a>
+                    </li>
+                    <li>
+                      <a onClick={() => setFilter('FE 8')}>FE 8</a>
+                    </li>
+                  </ul>
+                </div>
+                <div className="dropdown dropdown-bottom  rounded-box text-alta-dark">
+                  <label tabIndex={0} className="btn bg-white text-alta-dark m-1 hover:text-white hover:bg-alta-dark">
+                    {filterCate} <HiOutlineSelector className="mx-1" />
+                  </label>
+                  <ul tabIndex={0} className="dropdown-content menu p-2 shadow bg-base-100 rounded-box w-52">
+                    <li>
+                      <a onClick={() => setFilterCate('All Category')}>All Category</a>
+                    </li>
+                    <li>
+                      <a onClick={() => setFilterCate('Informatics')}>Informatics</a>
+                    </li>
+                    <li>
+                      <a onClick={() => setFilterCate('Non-Informatics')}>Non-Informatics</a>
+                    </li>
+                  </ul>
+                </div>
+                <div className="left-2 dropdown rounded-box">
+                  <button className="btn bg-alta-dark">Filter</button>
+                </div>
+              </div>
+            </div>
+            {current && loading === true ? (current.map((item)=>{return(
+              <div key={item.id} className="card card-side bg-white hover:bg-slate-200" onClick={()=>{nextPage(item.id)}}>
+                <img className='shadow-2xl m-4' width={200} src={item.image_thumbnail_url} alt="Movie"/>
+                <div className="card-body">
+                  <h2 className="card-title">{item.property_name}</h2>
+                  <p className='flex flex-wrap gap-1'><AiFillStar size={30}/>{item.rating_average}</p>
+                  <div className="card-actions justify-start">
                   <h2 className="card-title">{item.facilities}</h2>
                 </div>
               </div>
