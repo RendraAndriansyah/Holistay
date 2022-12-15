@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { MdEdit } from 'react-icons/md';
-
+import { useCookies } from 'react-cookie';
 import { BiDetail } from 'react-icons/bi';
 import { MdDeleteForever } from 'react-icons/md';
 import Router from 'next/router'
@@ -11,36 +11,49 @@ const Properties = () => {
   const [row, setRows] = useState([]);
   const [loading, setLoading] = useState(true);
   const [currentPage, setCurrentPage] = useState(1);
-  const [dataPerPage, setdataPerPage] = useState(2);
+  const [dataPerPage, setdataPerPage] = useState(10);
   const lastIndex = currentPage * dataPerPage;
   const firstIndex = lastIndex - dataPerPage;
   const current = row?.slice(firstIndex, lastIndex);
   const maxPage = Math.ceil(row?.length / dataPerPage);
+  const [cookie]=useCookies()
   const pages = [];
-  for (let i = 1; i <= maxPage; i++) {
-    pages.push(i);
-  }
-  // const disabled = currentPage === Math.ceil(image?.length / dataPerPage) ? true : false;
-  // const disableBack = currentPage === 1 ? true : false
-  const paginateBack = () => {
-    currentPage > 1 && setCurrentPage(currentPage - 1);
-  };
-  const paginateFront = () => setCurrentPage(currentPage + 1);
-
+  const [idProp,setIdprop] = useState()
+  
+  for(let i = 1; i <= maxPage; i++){pages.push(i)}
+  const disabled = currentPage === Math.ceil(row?.length / dataPerPage) ? true : false;
+  const disableBack = currentPage === 1 ? true : false
+  const paginateBack = () => {currentPage > 1 && setCurrentPage(currentPage - 1)}
+  const paginateFront =() => setCurrentPage(currentPage + 1)
 
 
 
 
   const getRows = async () => {
     await axios
-      .get(`https://virtserver.swaggerhub.com/ACHMADQIZWINI4_1/GP3_Kelompok3/1.0.0/properties`)
+      .get(`https://irisminty.my.id/users/${cookie.id}/properties`,
+      {headers : {authorization: `bearer ${cookie.token}`}})
       .then((res) => {
         setRows(res.data.data);
         setLoading(false);
-      });
+      })
+      .catch(err => console.log(err))
   };
 
-  // console.log("ini data dari api",row)
+ 
+
+  const cobaDelete = () =>{
+    const numberId = Number(idProp)
+ axios
+  .delete(`https://irisminty.my.id/properties/${numberId}`,
+  {headers : {authorization: `bearer ${cookie.token}`}})
+  .then((res)=>{
+    console.log(res)
+  })
+  .catch(err => console.log(err))
+  }
+
+
   useEffect(() => {
     getRows();
   }, []);
@@ -95,7 +108,8 @@ const Properties = () => {
                               </button>
                             </td>
                             <td>
-                              <button>
+                              <button onClick={()=>{setIdprop(item.id),cobaDelete()}}>
+                            
                                 <MdDeleteForever />
                               </button>
                             </td>
@@ -111,25 +125,22 @@ const Properties = () => {
                 </table>
               </div>
             </div>
-            <div className="p-5">
-              <p className="text-center pt-5 text-alta-dark">Showing 1 to 10</p>
-            </div>
             <div className="btn-group flex  place-items-center justify-center gap-2">
-            <button className="btn hover:text-white hover:bg-alta-dark bg-white text-alta-dark ">
+            <button className="btn hover:text-white hover:bg-alta-dark bg-white text-alta-dark " onClick={()=>paginateBack()}>
               Prev
             </button>
             {pages?.map((page, index) => {
               return (
                 <button
                   key={index}
-                  className="peer peer-focus:bg-white focus:bg-alta-dark border border-alta-dark bg-white hover:text-white hover:bg-alta-dark btn-circle"
+                  className="focus:bg-alta-dark focus:text-white border border-alta-dark bg-white hover:text-white hover:bg-alta-dark btn-circle"
                   onClick={() => setCurrentPage(page)}
                 >
                   {page}
                 </button>
               );
             })}
-              <button className="btn hover:text-white hover:bg-alta-dark bg-white text-alta-dark">Next</button>
+              <button className="btn hover:text-white hover:bg-alta-dark bg-white text-alta-dark" onClick={()=>paginateFront()}>Next</button>
             </div>
           </div>
         </div>

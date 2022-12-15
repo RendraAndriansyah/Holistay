@@ -135,7 +135,7 @@ const App = () => {
                       <a onClick={() => setFilterCate('house')}>HOUSE</a>
                     </li>
                     <li>
-                      <a onClick={() => setFilterCate('apartemen')}>APARTEMEN</a>
+                      <a onClick={() => setFilterCate('apartement')}>APARTEMEN</a>
                     </li>
                     <li>
                       <a onClick={() => setFilterCate('guesthouse')}>GUEST HOUSE</a>
@@ -150,7 +150,7 @@ const App = () => {
             </div>
         
             {current && loading === true ? (current.map((item)=>{return(
-              <div key={item?.id} className="card card-side hover:bg-slate-200" onClick={()=>{nextPage()}}>
+              <div key={item?.id} className="card card-side hover:bg-slate-200" onClick={()=>{nextPage(item.id)}}>
                 <img className='shadow-2xl m-4' width={200} src={item?.image_thumbnail_url} alt="Movie"/>
                 <div className="card-body">
                   <h2 className="card-title">{item?.property_name}</h2>
