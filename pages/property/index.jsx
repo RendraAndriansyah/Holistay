@@ -14,11 +14,14 @@ const DetailProperty = () => {
   const [users, setUsers] = useState('')
   const [checkin, setCheckin] = useState('')
   const [checkout, setCheckout] = useState('')
+  const [available, setAvailable] = useState('')
+  const [countDay, setCountDay] = useState()
+  const [pay, setPay] = useState()
   const [cookie, setCookie] = useCookies()
   const auth = cookie.token
   const router = useRouter()
   // const id = 1
-  const id = router.query?.param
+  const id = router.query?.param || 1
 
   const getProperty = async() => {
     await axios.get(`https://irisminty.my.id/properties/${id}`,{headers: {"Authorization": `Bearer ${auth}`}})
@@ -48,12 +51,72 @@ const DetailProperty = () => {
     })
     .catch(err => console.log(err))
   }
-  const checkValidate = () => {
-    console.log(checkin.split('-').reverse().join('-'))
-    console.log(checkout.split('-').reverse().join('-'))
+  const checkValidate = async() => {
+    console.log(checkin)
+    const url = `https://irisminty.my.id/properties/${id}/availability?checkin_date=${checkin}&checkout_date=${checkout}`
+    await axios.get(url, 
+      // {checkin_date : checkin, checkout_date : checkout},
+      {headers: {"Authorization": `Bearer ${auth}`}})
+    .then(res => {
+      setAvailable(res.data.data.booking_status)
+      if(res.data.data.booking_status == 'Available'){
+        Swal.fire({
+          position: "center",
+          icon: "success",
+          text: "Tanggal Available",
+          showConfirmButton: false,
+          timer: 2000,
+        });
+        setIsValid(true)
+        let firstDay = parseInt(checkin.split('-')[2])
+        let lastDay = parseInt(checkout.split('-')[2])
+        setCountDay(lastDay - firstDay)
+        console.log(countDay)
+        console.log(property.price_per_night)
+        setPay(parseInt(property.price_per_night) * parseInt(countDay))
+      }else{
+        Swal.fire({
+          position: "center",
+          icon: "warning",
+          text: "Tanggal Not Available",
+          showConfirmButton: false,
+          timer: 2000,
+        });
+      }
+      console.log(res.data.data)
+    })
+    .catch(err => {
+      console.log(err)
+    })
   }
-  const onReserve = () => {
-    console.log('Reserve')
+  const onReserve = async() => {
+    await axios.post(`https://irisminty.my.id/bookings`, 
+       {
+        checkin_date: checkin,
+        checkout_date: checkout,
+        property_id: parseInt(id)
+        },
+      {headers: {"Authorization": `Bearer ${auth}`}})
+    .then(res => {
+      Swal.fire({
+        position: "center",
+        icon: "success",
+        text: "Reservation Success",
+        showConfirmButton: false,
+        timer: 10000,
+      });
+      router.push('/user/historytrip')
+    })
+    .catch(err => {
+      Swal.fire({
+        position: "center",
+        icon: "warning",
+        text: "Reservation not successfull",
+        showConfirmButton: false,
+        timer: 2000,
+      });
+      console.log(err)
+    })
   }
 
   useEffect(() => {
@@ -73,13 +136,13 @@ const DetailProperty = () => {
             <div className="">
               <h1 className="text-3xl font-bold text-black">{property.property_name}</h1>
               <h1 className="text-3xl font-bold text-alta-dark">{property.rating_average}</h1>
-              <div className="rating">
+              {/* <div className="rating">
                 <input type="radio" name="rating-2" className="mask mask-star-2 bg-orange-400" />
                 <input type="radio" name="rating-2" className="mask mask-star-2 bg-orange-400" />
                 <input type="radio" name="rating-2" className="mask mask-star-2 bg-orange-400" />
                 <input type="radio" name="rating-2" className="mask mask-star-2 bg-orange-400" checked />
                 <input type="radio" name="rating-2" className="mask mask-star-2 bg-orange-400" />
-              </div>
+              </div> */}
               <div className='flex h-[60vh] my-3'>
                 <div className='w-[60%] px-3'>
                   <img src={property.image_thumbnail_url || '/Home-1.jpg'} width={800} height={100} alt='gambar'/>
@@ -120,7 +183,7 @@ const DetailProperty = () => {
               <h3 className='font-semibold text-black text-xl py-5'>${property.price_per_night} x 2 night</h3>
               <p className='font-semibold text-alta-dark text-2xl py-5 flex justify-between'>
                 <span>Total</span>
-                <span>$40.00</span>
+                <span>{pay}</span>
               </p>
             </div>
           </div>

@@ -6,6 +6,7 @@ import { FaRegEyeSlash } from "react-icons/fa";
 import { useCookies } from "react-cookie";
 import Router from "next/router";
 import axios from "axios";
+import Swal from "sweetalert2";
 
 export default function Home() {
   const [email, setEmail] = useState("");
@@ -25,10 +26,21 @@ export default function Home() {
         setCookie("token", res.data.data.token);
         setCookie("id", res.data.data.id);
         setCookie("image", res.data.data.profile_image_url);
+        Swal.fire({
+          position: "center",
+          icon: "success",
+          text: "Anda Berhasil Login",
+          showConfirmButton: false,
+          timer: 2000,
+        });
         Router.push({ pathname: "/" });
       })
       .catch((err) => {
         console.log(err);
+        Swal.fire({
+          icon: "error",
+          text: "Login belum berhasil! Coba lagi...",
+        });
       });
     // console.log(data)
   };

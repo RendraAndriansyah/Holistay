@@ -10,6 +10,23 @@ import Layout from '../../components/Layout';
 const Properties = () => {
   const [row, setRows] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [dataPerPage, setdataPerPage] = useState(2);
+  const lastIndex = currentPage * dataPerPage;
+  const firstIndex = lastIndex - dataPerPage;
+  const current = row?.slice(firstIndex, lastIndex);
+  const maxPage = Math.ceil(row?.length / dataPerPage);
+  const pages = [];
+  for (let i = 1; i <= maxPage; i++) {
+    pages.push(i);
+  }
+  // const disabled = currentPage === Math.ceil(image?.length / dataPerPage) ? true : false;
+  // const disableBack = currentPage === 1 ? true : false
+  const paginateBack = () => {
+    currentPage > 1 && setCurrentPage(currentPage - 1);
+  };
+  const paginateFront = () => setCurrentPage(currentPage + 1);
+
 
 
 
@@ -59,8 +76,8 @@ const Properties = () => {
                     </tr>
                   </thead>
                   <tbody className="text-center">
-                    {row && loading == false ? (
-                      row.map((item) => (
+                    {current && loading == false ? (
+                      current.map((item) => (
                           <tr className="hover text-alta-dark" key={item.id}>
                             <th>{item.id}</th>
                             <td>{item.property_name}</td>
@@ -68,12 +85,12 @@ const Properties = () => {
                             <td>{item.city}</td>
                             <td>{item.rating_average}</td>
                             <td>
-                              <button onClick={() =>{Router.push({pathname:`/property`})}}>
+                              <button onClick={() =>{Router.push({pathname:`/property`, query:{param : item.id}})}}>
                                 <BiDetail />
                               </button>
                             </td>
                             <td>
-                              <button >
+                              <button onClick={() => Router.push({pathname : '/user/editproperty', query:{param : item.id}})}>
                                 <MdEdit />
                               </button>
                             </td>
@@ -98,13 +115,20 @@ const Properties = () => {
               <p className="text-center pt-5 text-alta-dark">Showing 1 to 10</p>
             </div>
             <div className="btn-group flex  place-items-center justify-center gap-2">
-              <button className="btn hover:text-white hover:bg-alta-dark bg-white text-alta-dark ">Prev</button>
-              <button className="bg-white hover:text-white hover:bg-alta-dark border text-black btn-circle border-alta-dark">1</button>
-              <button className="border-none  bg-white hover:text-white hover:bg-alta-dark btn-circle">2</button>
-              <button className="border-none  bg-white hover:text-white hover:bg-alta-dark btn-circle">3</button>
-              <button className="border-none  bg-white hover:text-white hover:bg-alta-dark btn-circle">4</button>
-              <button className="border-none  bg-white hover:text-white hover:bg-alta-dark btn-circle">5</button>
-
+            <button className="btn hover:text-white hover:bg-alta-dark bg-white text-alta-dark ">
+              Prev
+            </button>
+            {pages?.map((page, index) => {
+              return (
+                <button
+                  key={index}
+                  className="peer peer-focus:bg-white focus:bg-alta-dark border border-alta-dark bg-white hover:text-white hover:bg-alta-dark btn-circle"
+                  onClick={() => setCurrentPage(page)}
+                >
+                  {page}
+                </button>
+              );
+            })}
               <button className="btn hover:text-white hover:bg-alta-dark bg-white text-alta-dark">Next</button>
             </div>
           </div>
