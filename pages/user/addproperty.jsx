@@ -25,11 +25,10 @@ const AddProperty = () => {
     form.append("description", desc);
     form.append("address", address);
     form.append("city", city);
-    form.append("contact", contact);
     form.append("contact_number", contact);
     form.append("facilities", facilities);
     form.append("property_type", type);
-    form.append("files", file);
+    form.append("file", file);
 
     console.log([...form]);
 
@@ -187,11 +186,7 @@ const AddProperty = () => {
                   <button
                     className="bg-alta-dark w-24 h-8 text-white rounded-md"
                     onClick={() => {
-                      return (
-                        alertDone(),
-                        add(),
-                        Router.push({ pathname: `/user/myproperties` })
-                      );
+                      return alertDone(), add();
                     }}
                   >
                     Save

@@ -72,7 +72,7 @@ const User = () => {
       })
       .then((res) => {
         console.log(res);
-        // Router.reload();
+        Router.reload();
       });
   };
 
@@ -86,7 +86,6 @@ const User = () => {
         console.log(res);
       });
   };
-
   const DellAcc = useCallback(() => {
     Swal.fire({
       title: "Are you sure?",
