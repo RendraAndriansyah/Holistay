@@ -15,7 +15,7 @@ const DetailProperty = () => {
   const [checkin, setCheckin] = useState('')
   const [checkout, setCheckout] = useState('')
   const [available, setAvailable] = useState('')
-  const [countDay, setCountDay] = useState()
+  const [countDay, setCountDay] = useState('')
   const [pay, setPay] = useState()
   const [cookie, setCookie] = useCookies()
   const auth = cookie.token
@@ -73,7 +73,7 @@ const DetailProperty = () => {
         setCountDay(lastDay - firstDay)
         console.log(countDay)
         console.log(property.price_per_night)
-        setPay(parseInt(property.price_per_night) * parseInt(countDay))
+        setPay(parseInt(property.price_per_night) * (lastDay - firstDay))
       }else{
         Swal.fire({
           position: "center",
@@ -180,7 +180,7 @@ const DetailProperty = () => {
               <button className={`bg-alta-dark text-white h-9 rounded-lg ${isValid ? `block` : `hidden`}`} onClick={() => onReserve()}>Reserve</button>
             </div>
             <div className={`card w-96 h-48 p-5 border-2 border-alta-dark flex flex-col divide-y-2 divide-alta-dark my-3 ${isValid ? `block` : `hidden`}`}>
-              <h3 className='font-semibold text-black text-xl py-5'>${property.price_per_night} x 2 night</h3>
+              <h3 className='font-semibold text-black text-xl py-5'>${property.price_per_night} x {countDay} night</h3>
               <p className='font-semibold text-alta-dark text-2xl py-5 flex justify-between'>
                 <span>Total</span>
                 <span>{pay}</span>
