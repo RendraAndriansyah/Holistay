@@ -51,7 +51,7 @@ const EditProperty = () => {
                   <input
                     type="text"
                     className="input  input-bordered w-96 max-w-5xl "
-                    value={proper?.property_name}
+                    defaultValue={proper?.property_name}
                   />
                 </label>
                 <label
@@ -63,7 +63,7 @@ const EditProperty = () => {
                     type="text"
                     placeholder="790000"
                     className="input input-bordered w-96 max-w-2xl "
-                    value={proper?.price_per_night}
+                    defaultValue={proper?.price_per_night}
                   />
                 </label>
                 <label
@@ -75,7 +75,7 @@ const EditProperty = () => {
                     type="text"
                     placeholder=""
                     className="input input-bordered w-96 max-w-2xl "
-                    value={proper?.description}
+                    defaultValue={proper?.description}
                   />
                 </label>
                 <label
@@ -87,7 +87,7 @@ const EditProperty = () => {
                     type="text"
                     placeholder="Jl. Raya Puncak No. 48"
                     className="input input-bordered w-96 max-w-2xl"
-                    value={proper?.address}
+                    defaultValue={proper?.address}
                   />
                 </label>
                 <label
@@ -99,7 +99,7 @@ const EditProperty = () => {
                     type="text"
                     placeholder="bogor"
                     className="input input-bordered w-96 max-w-2xl "
-                    value={proper?.city}
+                    defaultValue={proper?.city}
                   />
                 </label>
                 <label
@@ -111,7 +111,7 @@ const EditProperty = () => {
                     type="text"
                     placeholder="087512344321"
                     className="input input-bordered w-96 max-w-2xl "
-                    value={proper?.contact_number}
+                    defaultValue={proper?.contact_number}
                   />
                 </label>
                 <label
@@ -123,7 +123,7 @@ const EditProperty = () => {
                     type="text"
                     placeholder="3 Bedroom - TV Cable - Free Wifi - 2 Bathroom "
                     className="input input-bordered w-96 max-w-2xl "
-                    value={proper?.facilities}
+                    defaultValue={proper?.facilities}
                   />
                 </label>
                 <label
