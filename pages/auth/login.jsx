@@ -20,7 +20,7 @@ export default function Home() {
     await axios.post(`https://irisminty.my.id/auth`, data)
     .then(res => {
       console.log(res.data)
-      setCookie("name", res.data.data.full_name)
+      setCookie("name", res.data.data.full_name,)
       setCookie("token", res.data.data.token)
       setCookie("id", res.data.data.id)
       setCookie("image", res.data.data.profile_image_url)

@@ -1,53 +1,62 @@
 import React,{useState,useEffect} from 'react'
 import Router from 'next/router'
-import Head from 'next/head'
 import {HiOutlineSelector} from 'react-icons/hi'
 import {AiFillStar} from 'react-icons/ai'
 import axios from 'axios'
 import Layout from '../components/Layout'
-import {MdOutlineKeyboardArrowRight, MdOutlineKeyboardArrowLeft} from 'react-icons/md'
+import { useCookies } from 'react-cookie'
+
 
 
 
 const App = () => {
-  const [filter,setFilter]= useState("CITY")
-  const [filterCate,setFilterCate] = useState("PROTOTYPE TYPE")
+  const [filter,setFilter]= useState("")
+  const [filterCate,setFilterCate] = useState("")
   const [loading,setLoading]=useState(true)
   const [image,setImage]=useState()
   const [currentPage, setCurrentPage] = useState(1)
-  const [dataPerPage, setdataPerPage] = useState(2)
+  const [dataPerPage, setdataPerPage] = useState(3)
   const lastIndex = currentPage * dataPerPage
   const firstIndex = lastIndex - dataPerPage
   const current = image?.slice(firstIndex, lastIndex)
   const maxPage = Math.ceil(image?.length / dataPerPage)
   const pages = []
+  const [cookie]=useCookies()
+
+
   for(let i = 1; i <= maxPage; i++){pages.push(i)}
-  // const disabled = currentPage === Math.ceil(image?.length / dataPerPage) ? true : false;
-  // const disableBack = currentPage === 1 ? true : false
+  const disabled = currentPage === Math.ceil(image?.length / dataPerPage) ? true : false;
+  const disableBack = currentPage === 1 ? true : false
   const paginateBack = () => {currentPage > 1 && setCurrentPage(currentPage - 1)}
-  const paginateFront=() => setCurrentPage(currentPage + 1)
+  const paginateFront =() => setCurrentPage(currentPage + 1)
 
   const nextPage = () =>{
     Router.push({pathname:`/property`,query:{param:"ini param"}});
   }
   
-  const getImg = () => {
-    axios .get('https://virtserver.swaggerhub.com/ACHMADQIZWINI4_1/GP3_Kelompok3/1.0.0/properties')
-    .then((res)=>{
-      setLoading(true);
-      setImage(res.data.data)
-    })
-  }
+ 
 
-  useEffect(
-    ()=>{
-      getImg();
-    },[])
+  const handleSubmit = () =>{
+      axios 
+      .get(`https://irisminty.my.id/properties?property_name=&city=${filter}&property_type=${filterCate}`,
+      {headers: {Authorization: `Bearer ${cookie.token}`},})
+      .then((res)=>{
+        setLoading(true);
+        setImage(res.data.data)
+      });
+    
+    
+      } ;
 
-
+      useEffect(() => {
+        handleSubmit();
+      }, [filter,filterCate]);
+  
+    
   return (
     // Buat dashboard
     <Layout titlePage={'Home'}>
+     <div> {cookie.name}</div>
     <div className="flex  mx-16 my-5">
       <h1 className='flex flex-1 text-5xl text-alta-dark font-bold'>STAYS</h1>
         <div className="flex-row-reverse">
@@ -61,6 +70,7 @@ const App = () => {
         <input type="text" placeholder="Search" className="input input-bordered" />
       </div>
     </div>
+   
     <div className="border-b-2"></div>
             <div className="grid justify-end">
               <div className="mr-20 mt-5">
@@ -69,17 +79,47 @@ const App = () => {
                     {filter} <HiOutlineSelector className="mx-1" />
                   </label>
                   <ul tabIndex={0} className="dropdown-content menu p-2 bg-base-100 rounded-box w-52">
-                    <li>
-                      <a onClick={() => setFilter('ALL CLASS')}>ALL CLASS</a>
+                  <li>
+                      <a onClick={() => setFilter('')}>ALL</a>
                     </li>
                     <li>
-                      <a onClick={() => setFilter('QE 7')}>QE 7</a>
+                      <a onClick={() => setFilter('jakarta')}>JAKARTA</a>
                     </li>
                     <li>
-                      <a onClick={() => setFilter('BE 6')}>BE 6</a>
+                      <a onClick={() => setFilter('bogor')}>BOGOR</a>
                     </li>
                     <li>
-                      <a onClick={() => setFilter('FE 8')}>FE 8</a>
+                      <a onClick={() => setFilter('bandung')}>BANDUNG</a>
+                    </li>
+                    <li>
+                      <a onClick={() => setFilter('aceh')}>ACEH</a>
+                    </li>
+                    <li>
+                      <a onClick={() => setFilter('surabaya')}>SURABAYA</a>
+                    </li>
+                    <li>
+                      <a onClick={() => setFilter('bali')}>BALI</a>
+                    </li>
+                    <li>
+                      <a onClick={() => setFilter('lombok')}>LOMBOK</a>
+                    </li>
+                    <li>
+                      <a onClick={() => setFilter('sumba')}>SUMBA</a>
+                    </li>
+                    <li>
+                      <a onClick={() => setFilter('semarang')}>SEMARANG</a>
+                    </li>
+                    <li>
+                      <a onClick={() => setFilter('batam')}>BATAM</a>
+                    </li>
+                    <li>
+                      <a onClick={() => setFilter('yogyakarta')}>YOGYAKARTA</a>
+                    </li>
+                    <li>
+                      <a onClick={() => setFilter('MAKASAR')}>MAKASAR</a>
+                    </li>
+                    <li>
+                      <a onClick={() => setFilter('PALEMBANG')}>PALEMBANG</a>
                     </li>
                   </ul>
                 </div>
@@ -88,30 +128,35 @@ const App = () => {
                     {filterCate} <HiOutlineSelector className="mx-1" />
                   </label>
                   <ul tabIndex={0} className="dropdown-content menu p-2 shadow bg-base-100 rounded-box w-52">
-                    <li>
-                      <a onClick={() => setFilterCate('All Category')}>All Category</a>
+                  <li>
+                      <a onClick={() => setFilterCate('')}>ALL</a>
                     </li>
                     <li>
-                      <a onClick={() => setFilterCate('Informatics')}>Informatics</a>
+                      <a onClick={() => setFilterCate('house')}>HOUSE</a>
                     </li>
                     <li>
-                      <a onClick={() => setFilterCate('Non-Informatics')}>Non-Informatics</a>
+                      <a onClick={() => setFilterCate('apartemen')}>APARTEMEN</a>
+                    </li>
+                    <li>
+                      <a onClick={() => setFilterCate('guesthouse')}>GUEST HOUSE</a>
+                    </li>
+                    <li>
+                      <a onClick={() => setFilterCate('hotel')}>HOTEL</a>
                     </li>
                   </ul>
                 </div>
-                <div className="left-2 dropdown rounded-box">
-                  <button className="btn bg-alta-dark">Filter</button>
-                </div>
+               
               </div>
             </div>
+        
             {current && loading === true ? (current.map((item)=>{return(
-              <div key={item.id} className="card card-side bg-white hover:bg-slate-200" onClick={()=>{nextPage()}}>
-                <img className='shadow-2xl m-4' width={200} src={item.image_thumbnail_url} alt="Movie"/>
+              <div key={item?.id} className="card card-side hover:bg-slate-200" onClick={()=>{nextPage()}}>
+                <img className='shadow-2xl m-4' width={200} src={item?.image_thumbnail_url} alt="Movie"/>
                 <div className="card-body">
-                  <h2 className="card-title">{item.property_name}</h2>
-                  <p className='flex flex-wrap gap-1'><AiFillStar size={30}/>{item.rating_average}</p>
+                  <h2 className="card-title">{item?.property_name}</h2>
+                  <p className='flex flex-wrap gap-1'><AiFillStar size={30}/>{item?.rating_average}</p>
                   <div className="card-actions justify-start">
-                  <h2 className="card-title">{item.facilities}</h2>
+                  <h2 className="card-title">{item?.facilities}</h2>
                   </div>
                 </div>
               </div>)})       
@@ -123,16 +168,16 @@ const App = () => {
               <p className="text-center pt-5 text-alta-dark">Showing 1 to {maxPage}</p>
             </div>
             <div className="btn-group flex  place-items-center justify-center gap-2">
-              <button className="btn hover:text-white hover:bg-alta-dark bg-white text-alta-dark ">Prev</button>
+              <button className="btn hover:text-white hover:bg-alta-dark bg-white text-alta-dark " onClick={()=>paginateBack()}>Prev</button>
               {
                 pages?.map((page,index) => {
                   return (
-                  <button key={index} className="peer peer-focus:bg-white focus:bg-alta-dark border border-alta-dark bg-white hover:text-white hover:bg-alta-dark btn-circle"
+                  <button key={index} className="focus:bg-alta-dark focus:text-white border border-alta-dark bg-white hover:text-white hover:bg-alta-dark btn-circle"
                     onClick={() => setCurrentPage(page)}>{page}</button>
                   )
                 })
               }
-              <button className="btn hover:text-white hover:bg-alta-dark bg-white text-alta-dark">Next</button>
+              <button className="btn hover:text-white hover:bg-alta-dark bg-white text-alta-dark" onClick={()=>paginateFront()}>Next</button>   
             </div>
     </Layout>
   )

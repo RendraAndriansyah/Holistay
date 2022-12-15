@@ -11,6 +11,8 @@ const Navbar = () => {
       removeCookie("token")
       Router.push({pathname:`/auth/login`})
   }
+
+
   return (
     <div className="navbar h-20 w-full bg-alta-dark px-20 py-4">
       <div className="flex-1">
@@ -19,14 +21,13 @@ const Navbar = () => {
         </a>
       </div>
       <div className="flex-none gap-2">
-        <p className='text-lg font-semibold text-alta-light'>{cookie.name}</p>
+        <p className='text-lg font-semibold text-alta-light '></p>
         <div className="dropdown dropdown-end">
           <label tabIndex={0} className="btn btn-ghost btn-circle avatar border border-alta-light">
             <div className="w-10 rounded-full">
               {/* <img src="https://placeimg.com/80/80/people" /> */}
               <img src={cookie.image} />
             </div>
-              
           </label>
           <ul tabIndex={0} className="mt-3 p-2 shadow menu menu-compact dropdown-content bg-alta-light rounded-box w-40">
             <li><a className='text-alta-dark' onClick={() => Router.push({pathname:`/user`})}>My Profile</a></li>
