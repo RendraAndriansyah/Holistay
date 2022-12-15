@@ -1,14 +1,19 @@
-
-import React, { useState } from 'react'
-import Image from 'next/image'
-import Router from 'next/router'
-import { useCookies } from 'react-cookie'
+import React, { useEffect, useState } from "react";
+import Image from "next/image";
+import Router from "next/router";
+import { useCookies } from "react-cookie";
 
 const Navbar = () => {
   const [cookie, removeCookie] = useCookies();
-  const [auth, setAuth] = useState(cookie.token)
-  const [name, setName] = useState(cookie.name)
-  const [image, setImage] = useState(cookie.image)
+
+  // const [auth, setAuth] = useState(cookie.token);
+  const [name, setName] = useState("");
+  const [image, setImage] = useState("");
+
+  useEffect(() => {
+    setImage(cookie.image);
+    setName(cookie.name);
+  });
 
   const onLogout = () => {
     Router.push({ pathname: `/auth/login` });
@@ -32,7 +37,7 @@ const Navbar = () => {
         </a>
       </div>
       <div className="flex-none gap-2">
-        <p className="text-lg font-semibold text-alta-light">{cookie.name}</p>
+        <p className="text-lg font-semibold text-alta-light">{name}</p>
 
         <div className="dropdown dropdown-end">
           <label
