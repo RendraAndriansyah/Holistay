@@ -9,15 +9,16 @@ const Modal = () => {
     const [comment,setComent]=useState()
     const [rating,setRating]=useState()
 
-    const handleSubmit = async() =>
+    const handleSubmit = async({idProp}) =>
      {  
+      console.log("ini id prop",{idProp})
         await axios
         .post(`https://irisminty.my.id/comments`, 
         {
             'title': title,
             'comment': comment,
             'rating': Number(rating),
-            'property_id': 1
+            'property_id': Number({idProp})
         } 
           , {headers : {authorization: `bearer ${cookie.token}`}}
           )
@@ -28,6 +29,8 @@ const Modal = () => {
  
 
   return (
+    <div>
+    <p className='text-3xl text-center p-5 font-bold text-alta-dark'>Comments</p>
     <form className="mb-0 my-2 mx-3 " action="#" method="POST ">
     <div className="flex flex-col justify-items-center">
     <input
@@ -54,6 +57,7 @@ const Modal = () => {
     <button onClick={handleSubmit}  className="btn bg-alta-dark hover:text-alta-dark hover:bg-white">Save</button>
   </div>
   </form>
+  </div>
   )
 }
 

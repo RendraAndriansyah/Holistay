@@ -15,7 +15,7 @@ const App = () => {
   const [loading,setLoading]=useState(true)
   const [image,setImage]=useState()
   const [currentPage, setCurrentPage] = useState(1)
-  const [dataPerPage, setdataPerPage] = useState(3)
+  const [dataPerPage, setdataPerPage] = useState(5)
   const lastIndex = currentPage * dataPerPage
   const firstIndex = lastIndex - dataPerPage
   const current = image?.slice(firstIndex, lastIndex)
@@ -57,6 +57,7 @@ const App = () => {
   return (
     // Buat dashboard
     <Layout titlePage={'Home'}>
+      <div className='w-[90vw] m-auto'>
     <div className="flex  mx-16 my-5">
       <h1 className='flex flex-1 text-5xl text-alta-dark font-bold'>STAYS</h1>
         <div className="flex-row-reverse">
@@ -160,8 +161,7 @@ const App = () => {
                   </div>
                 </div>
               </div>)})):(<h1>Memuaat</h1>)}
-         
-            <div className="btn-group flex  place-items-center justify-center gap-2">
+            <div className="btn-group flex  place-items-center justify-center gap-2 m-5">
               <button className="btn hover:text-white hover:bg-alta-dark bg-white text-alta-dark " onClick={()=>paginateBack()}>Prev</button>
               {
                 pages?.map((page,index) => {
@@ -172,6 +172,7 @@ const App = () => {
                 })
               }
               <button className="btn hover:text-white hover:bg-alta-dark bg-white text-alta-dark" onClick={()=>paginateFront()}>Next</button>   
+            </div>
             </div>
   </Layout>
   )

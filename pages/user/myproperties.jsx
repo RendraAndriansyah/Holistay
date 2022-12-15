@@ -61,7 +61,7 @@ const Properties = () => {
   return (
     //List My Properties
     <Layout titlePage={'My Properties'}>
-    <div className="bg-alta-white w-full h-full">
+    <div className="bg-alta-white w-full h-screen">
        <div className="bg-alta-white h-5/6 m-5">
           <div>
           <div className="flex flex-row-reverse mx-16">
