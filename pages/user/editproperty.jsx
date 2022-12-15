@@ -12,6 +12,7 @@ const EditProperty = () => {
   const id = router.query.param;
   const [proper, setProper] = useState("");
 
+  // STATE FOR EDIT //
   const [propName, setPropName] = useState("");
   const [price, setPrice] = useState("");
   const [desc, setDesc] = useState("");
@@ -22,10 +23,14 @@ const EditProperty = () => {
   const [type, setType] = useState("");
   const [file, setFiles] = useState("");
 
+  // STATE FOR POST GALLERY
+  const [title, setTitle] = useState();
+  const [fileGall, setFileGall] = useState();
+
   // GET VALUE PROPERTIES //
   const getPropById = async () => {
     await axios
-      .get(`https://irisminty.my.id/properties/15`, {
+      .get(`https://irisminty.my.id/properties/${id}`, {
         headers: {
           Authorization: `Bearer ${cookie.token}`,
         },
@@ -47,10 +52,24 @@ const EditProperty = () => {
     form.append("property_type", !type ? proper.property_type : type);
     form.append("file", !file ? proper.image_thumbnail_url : file);
 
-    console.log([...form]);
+    await axios
+      .put(`https://irisminty.my.id/properties/${id}`, form, {
+        headers: {
+          Authorization: `Bearer ${cookie.token}`,
+          "Content-type": "multipart/form-data",
+        },
+      })
+      .then((res) => console.log(res))
+      .catch((err) => console.log(err));
+
+    // POST GALLERY
+    const addGall = new FormData();
+    addGall.append("title", title);
+    addGall.append("property_id", id);
+    addGall.append("file", fileGall);
 
     await axios
-      .put(`https://irisminty.my.id/properties/15`, form, {
+      .post(`https://irisminty.my.id/property_images`, addGall, {
         headers: {
           Authorization: `Bearer ${cookie.token}`,
           "Content-type": "multipart/form-data",
@@ -75,7 +94,7 @@ const EditProperty = () => {
   };
 
   return (
-    <Layout titlePage={"Add Property"}>
+    <Layout titlePage={"Edit Property"}>
       <div className="flex flex-row h-full">
         <div className="basis 1/5  w-80 "></div>
         <div className=" w-full pt-10">
@@ -141,13 +160,26 @@ const EditProperty = () => {
                   className="flex flex-row items-center gap-20 justify-between"
                 >
                   <span className="">City </span>
-                  <input
-                    type="text"
-                    placeholder="bogor"
-                    className="input input-bordered w-96 max-w-2xl "
+
+                  <select
+                    className="select select-bordered w-full max-w-sm"
                     defaultValue={proper?.city}
-                    onChange={(e) => setCity(e.currentTarget.value)}
-                  />
+                    onClick={(e) => setCity(e.target.value)}
+                  >
+                    <option value={"aceh"}>ACEH</option>
+                    <option value={"bandung"}>BANDUNG</option>
+                    <option value={"bali"}>BALI</option>
+                    <option value={"batam"}>BATAM</option>
+                    <option value={"bogor"}>BOGOR</option>
+                    <option value={"jakarta"}>JAKARTA</option>
+                    <option value={"lombok"}>LOMBOK</option>
+                    <option value={"makassar"}>MAKASSAR</option>
+                    <option value={"palembang"}>PALEMBANG</option>
+                    <option value={"semarang"}>SEMARANG</option>
+                    <option value={"sumba"}>SUMBA</option>
+                    <option value={"surabaya"}>SURABAYA</option>
+                    <option value={"yogyakarta"}>YOGYAKARTA</option>
+                  </select>
                 </label>
                 <label
                   htmlFor=""
@@ -202,6 +234,33 @@ const EditProperty = () => {
                     onChange={(e) => setFiles(e.target.files[0])}
                   />
                 </label>
+                <hr className="mt-5 border-alta-dark border-1" />
+                <p className="text-2xl font-bold"> Add more images</p>
+                <label
+                  htmlFor=""
+                  className="flex flex-row items-center gap-20 justify-between"
+                >
+                  <span className="">Title Image </span>
+                  <input
+                    type="text"
+                    placeholder="Swimming pool"
+                    className="input input-bordered w-96 max-w-2xl "
+                    onChange={(e) => setTitle(e.currentTarget.value)}
+                  />
+                </label>
+                <label
+                  htmlFor=""
+                  className="flex flex-row items-center gap-20 justify-between"
+                >
+                  <span className="">Images </span>
+                  <input
+                    type="file"
+                    placeholder=""
+                    className="file:border-alta-dark input bg-alta-light px-3 file:bg-alta-dark file:text-white file:h-full file:left-0 caret-alta-dark text-alta-dark h-9 mx-16"
+                    onChange={(e) => setFileGall(e.target.files[0])}
+                  />
+                </label>
+
                 <div className="flex flex-row justify-end py-5 gap-5">
                   <button className="border-2 border-alta-dark w-24 h-8 text-alta-dark rounded-md">
                     Cancel

@@ -2,23 +2,53 @@ import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import Router from "next/router";
 import { useCookies } from "react-cookie";
+import Swal from "sweetalert2";
+import axios from "axios";
 
 const Navbar = () => {
   const [cookie, removeCookie] = useCookies();
-
-  // const [auth, setAuth] = useState(cookie.token);
-  const [name, setName] = useState("");
-  const [image, setImage] = useState("");
+  const [data, setData] = useState("");
+  const getUserById = async () => {
+    await axios
+      .get(`https://irisminty.my.id/users/${cookie.id}`, {
+        headers: {
+          Authorization: `Bearer ${cookie.token}`,
+          "Content-type": "multipart/form-data",
+        },
+      })
+      .then((res) => {
+        setData(res.data.data);
+      });
+  };
 
   useEffect(() => {
-    setImage(cookie.image);
-    setName(cookie.name);
-  });
+    getUserById();
+  }, []);
 
   const onLogout = () => {
-    Router.push({ pathname: `/auth/login` });
-    removeCookie("name");
-    removeCookie("token");
+    Swal.fire({
+      title: "Are you sure?",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#17345f",
+      confirmButtonText: "Yes, sure",
+      cancelButtonColor: "#F47522",
+      cancelButtonText: "Not now",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        Swal.fire({
+          position: "center",
+          icon: "success",
+          text: "logout success, see you 👋🏻",
+          showConfirmButton: false,
+          timer: 1500,
+        });
+        removeCookie("token");
+        removeCookie("name");
+
+        Router.push({ pathname: `/auth/login` });
+      }
+    });
   };
 
   return (
@@ -37,7 +67,9 @@ const Navbar = () => {
         </a>
       </div>
       <div className="flex-none gap-2">
-        <p className="text-lg font-semibold text-alta-light">{name}</p>
+        <p className="text-lg font-semibold text-alta-light">
+          {data.full_name}
+        </p>
 
         <div className="dropdown dropdown-end">
           <label
@@ -46,7 +78,7 @@ const Navbar = () => {
           >
             <div className="w-10 rounded-full">
               {/* <img src="https://placeimg.com/80/80/people" /> */}
-              <img src={image} />
+              <img src={data.profile_image_url} />
             </div>
           </label>
           <ul

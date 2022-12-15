@@ -30,8 +30,6 @@ const AddProperty = () => {
     form.append("property_type", type);
     form.append("file", file);
 
-    console.log([...form]);
-
     await axios
       .post(`https://irisminty.my.id/properties`, form, {
         headers: {
@@ -39,7 +37,10 @@ const AddProperty = () => {
           "Content-type": "multipart/form-data",
         },
       })
-      .then((res) => console.log(res))
+      .then(
+        (res) => console.log(res),
+        Router.push({ pathname: "/user/myproperties" })
+      )
       .catch((err) => console.log(err));
   };
 
@@ -117,12 +118,26 @@ const AddProperty = () => {
                   className="flex flex-row items-center gap-20 justify-between"
                 >
                   <span className="">City </span>
-                  <input
-                    type="text"
-                    placeholder="bogor"
-                    className="input input-bordered w-96 max-w-2xl "
-                    onChange={(e) => setCity(e.target.value)}
-                  />
+                  <select
+                    className="select select-bordered w-full max-w-sm"
+                    // defaultValue={"jakarta"}
+                    defaultValue="jakarta"
+                    onClick={(e) => setCity(e.target.value)}
+                  >
+                    <option value={"aceh"}>ACEH</option>
+                    <option value={"bandung"}>BANDUNG</option>
+                    <option value={"bali"}>BALI</option>
+                    <option value={"batam"}>BATAM</option>
+                    <option value={"bogor"}>BOGOR</option>
+                    <option value={"jakarta"}>JAKARTA</option>
+                    <option value={"lombok"}>LOMBOK</option>
+                    <option value={"makassar"}>MAKASSAR</option>
+                    <option value={"palembang"}>PALEMBANG</option>
+                    <option value={"semarang"}>SEMARANG</option>
+                    <option value={"sumba"}>SUMBA</option>
+                    <option value={"surabaya"}>SURABAYA</option>
+                    <option value={"yogyakarta"}>YOGYAKARTA</option>
+                  </select>
                 </label>
                 <label
                   htmlFor=""
