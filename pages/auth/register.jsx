@@ -5,6 +5,7 @@ import { FaRegEyeSlash } from "react-icons/fa";
 import { useCookies } from "react-cookie";
 import Router from "next/router";
 import axios from "axios";
+import Swal from "sweetalert2";
 
 export default function Register() {
   const [name, setName] = useState("");
@@ -16,15 +17,6 @@ export default function Register() {
   const [seePwd, setSeePwd] = useState(false);
   const [cookie, setCookie] = useCookies();
 
-  // const dataRegister = {
-  //   full_name: name,
-  //   email: email,
-  //   password: password,
-  //   phone: phone,
-  //   gender: gender,
-  //   file: file,
-  // };
-
   const onRegister = async () => {
     const form = new FormData();
     form.append("full_name", name);
@@ -34,23 +26,22 @@ export default function Register() {
     form.append("gender", gender);
     form.append("file", file);
 
-    console.log([...form]);
-
-    // await axios.post(`https://irisminty.my.id/users`,{
-    //   headers: {
-    //     "Content-type": "multipart/form-data",
-    //   },
-    //   data : {formData}
-    // })
-    // }
     await axios
       .post(`https://irisminty.my.id/users`, form, {
         headers: { "Content-type": "multipart/form-data" },
       })
-      .then((res) => console.log(res))
+      .then((res) => {
+        Swal.fire({
+          position: "center",
+          icon: "success",
+          text: `${res.data.message}`,
+          showConfirmButton: false,
+          timer: 2000,
+        });
+        Router.push({ pathname: "/auth/login" });
+      })
       .catch((err) => console.log(err));
   };
-  // console.log(file)
   return (
     <div className="min-h-screen w-screen bg-alta-light grid place-items-center">
       <div className="rounded-[94px] w-[90vw] h-[95vh] bg-[#17345F] p-10 flex">
@@ -130,7 +121,7 @@ export default function Register() {
               <div className="h-12 flex justify-start" id="gender">
                 <label
                   className="label cursor-pointer peer-checked/male:text-[#17345F]"
-                  for="male"
+                  htmlFor="male"
                 >
                   <input
                     id="male"
@@ -146,7 +137,7 @@ export default function Register() {
                 </label>
                 <label
                   className="label cursor-pointer peer-checked/female:text-[#17345F]"
-                  for="female"
+                  htmlFor="female"
                 >
                   <input
                     id="female"
