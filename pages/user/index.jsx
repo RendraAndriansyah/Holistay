@@ -29,7 +29,6 @@ const User = () => {
       });
     } else {
       editUser();
-      console.log(data);
       Swal.fire({
         position: "center",
         icon: "success",
@@ -38,23 +37,16 @@ const User = () => {
         timer: 1500,
       });
     }
-    console.log(dataEdit);
-  };
-
-  let dataEdit = {
-    full_name: !name ? data.full_name : name,
-    email: !email ? data.email : email,
-    phone: !phone ? data.phone : phone,
-    gender: !gender ? data.gender : gender,
-    password: password,
-    file: file,
   };
 
   // GET DATA USER //
   const getUserById = async () => {
     await axios
       .get(`https://irisminty.my.id/users/${cookie.id}`, {
-        headers: { Authorization: `Bearer ${cookie.token}` },
+        headers: {
+          Authorization: `Bearer ${cookie.token}`,
+          "Content-type": "multipart/form-data",
+        },
       })
       .then((res) => {
         setData(res.data.data);
@@ -63,15 +55,21 @@ const User = () => {
 
   // EDIT USER //
   const editUser = async () => {
+    const form = new FormData();
+    form.append("full_name", !name ? data.full_name : name);
+    form.append("email", !email ? data.email : email);
+    form.append("phone", !phone ? data.phone : phone);
+    form.append("gender", !gender ? data.gender : gender);
+    form.append("password", password);
+    form.append("file", !file ? data.profile_image_url : file);
     await axios
-      .put(`https://irisminty.my.id/users/${cookie.id}`, dataEdit, {
+      .put(`https://irisminty.my.id/users/${cookie.id}`, form, {
         headers: {
           Authorization: `Bearer ${cookie.token}`,
           "content-type": "multipart/form-data",
         },
       })
-      .then((res) => {
-        console.log(res);
+      .then(() => {
         Router.reload();
       });
   };
@@ -86,6 +84,7 @@ const User = () => {
         console.log(res);
       });
   };
+
   const DellAcc = useCallback(() => {
     Swal.fire({
       title: "Are you sure?",
@@ -114,6 +113,7 @@ const User = () => {
   useEffect(() => {
     getUserById();
   }, []);
+
   return (
     //My profile
     <Layout titlePage="My Profile">
@@ -212,7 +212,7 @@ const User = () => {
                       onChange={(e) => setPassword(e.currentTarget.value)}
                     />
                   </label>
-                  {/* <label
+                  <label
                     htmlFor=""
                     className="flex flex-row items-center gap-20 justify-between"
                   >
@@ -223,7 +223,7 @@ const User = () => {
                       className="file:border-alta-dark input bg-alta-light px-3 file:bg-alta-dark file:text-white file:h-full file:left-0 caret-alta-dark text-alta-dark h-9 mx-16"
                       onChange={(e) => setFile(e.target.files[0])}
                     />
-                  </label> */}
+                  </label>
                   <div className="flex flex-row justify-end gap-5">
                     <button
                       className="border-2 border-alta-dark w-24 h-8 text-alta-dark rounded-md"
