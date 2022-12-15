@@ -159,8 +159,8 @@ const App = () => {
                   <h2 className="card-title">{item?.facilities}</h2>
                   </div>
                 </div>
-              </div>
-            </div>
+              </div>)})):(<h1>Memuaat</h1>)}
+         
             <div className="btn-group flex  place-items-center justify-center gap-2">
               <button className="btn hover:text-white hover:bg-alta-dark bg-white text-alta-dark " onClick={()=>paginateBack()}>Prev</button>
               {
@@ -173,36 +173,9 @@ const App = () => {
               }
               <button className="btn hover:text-white hover:bg-alta-dark bg-white text-alta-dark" onClick={()=>paginateFront()}>Next</button>   
             </div>
-    </Layout>
+  </Layout>
   )
 }
 
-      <div className="p-5">
-        <p className="text-center pt-5 text-alta-dark">
-          Showing 1 to {maxPage}
-        </p>
-      </div>
-      <div className="btn-group flex  place-items-center justify-center gap-2">
-        <button className="btn hover:text-white hover:bg-alta-dark bg-white text-alta-dark ">
-          Prev
-        </button>
-        {pages?.map((page, index) => {
-          return (
-            <button
-              key={index}
-              className="peer peer-focus:bg-white focus:bg-alta-dark border border-alta-dark bg-white hover:text-white hover:bg-alta-dark btn-circle"
-              onClick={() => setCurrentPage(page)}
-            >
-              {page}
-            </button>
-          );
-        })}
-        <button className="btn hover:text-white hover:bg-alta-dark bg-white text-alta-dark">
-          Next
-        </button>
-      </div>
-    </Layout>
-  );
-};
 
 export default App;
