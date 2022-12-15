@@ -5,6 +5,7 @@ import axios from 'axios'
 import {useRouter} from 'next/router'
 import { useCookies } from 'react-cookie'
 import Swal from 'sweetalert2'
+import {AiFillStar} from 'react-icons/ai'
 
 const DetailProperty = () => {
   const [isValid, setIsValid] = useState(false)
@@ -135,7 +136,10 @@ const DetailProperty = () => {
           <div className="hero-content">
             <div className="">
               <h1 className="text-3xl font-bold text-black">{property.property_name}</h1>
-              <h1 className="text-3xl font-bold text-alta-dark">{property.rating_average}</h1>
+              <div className='flex flex-wrap'>
+                <div className='pr-3'><AiFillStar size={35} className='text-orange-400'/></div>
+              <div className="text-3xl font-bold text-alta-dark">{Number(property.rating_average).toFixed(2)}</div>
+              </div>
               {/* <div className="rating">
                 <input type="radio" name="rating-2" className="mask mask-star-2 bg-orange-400" />
                 <input type="radio" name="rating-2" className="mask mask-star-2 bg-orange-400" />

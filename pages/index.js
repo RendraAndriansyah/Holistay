@@ -155,7 +155,7 @@ const App = () => {
                 <img className='shadow-2xl m-4' width={200} src={item?.image_thumbnail_url} alt="Movie"/>
                 <div className="card-body">
                   <h2 className="card-title">{item?.property_name}</h2>
-                  <p className='flex flex-wrap gap-1'><AiFillStar size={30}/>{item?.rating_average}</p>
+                  <p className='flex flex-wrap gap-1'><AiFillStar size={30} className='text-orange-400'/>{item?.rating_average.toFixed(2)}</p>
                   <div className="card-actions justify-start">
                   <h2 className="card-title">{item?.facilities}</h2>
                   </div>

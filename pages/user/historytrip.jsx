@@ -58,11 +58,11 @@ const Historytrip = () => {
                   {item.checkout_date} <HiOutlineSelector size={20} className="mx-1" />
                 </label>
               </div>
-              <h1 className='text-alta-dark text-xl my-2'>{item.price_per_night} /Night</h1>
+              <h1 className='text-alta-dark text-xl my-2'>${item.price_per_night} /Night</h1>
             </div>
           </div>
           <div className='flex'>
-          <h1 className='text-alta-dark text-3xl font-bold  flex-1'>Total Price : {item.price_per_night}RP</h1>
+          <h1 className='text-alta-dark text-3xl font-bold  flex-1'>Total Price : ${item.gross_amount}</h1>
           <div className='flex-end'>
           <label htmlFor="my-modal-3" className="btn bg-alta-dark ml-2">EDIT</label>
           <label htmlFor="my-modal-4" className="btn bg-alta-dark ml-2">GIVE FEEDBACK</label>
@@ -74,7 +74,8 @@ const Historytrip = () => {
          <input type="checkbox" id="my-modal-4" className="modal-toggle" />
 <label htmlFor="my-modal-4" className="modal cursor-pointer">
   <label className="modal-box relative" htmlFor="">
-  <Modal idProp={(idP)}  />             
+    {console.log("coba id",idP)}
+  <Modal  />             
   </label>
 </label>
 <input type="checkbox" id="my-modal-3" className="modal-toggle" />

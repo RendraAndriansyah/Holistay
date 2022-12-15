@@ -11,14 +11,14 @@ const Modal = () => {
 
     const handleSubmit = async({idProp}) =>
      {  
-      console.log("ini id prop",{idProp})
+      console.log("ini id prop",Number({idProp}))
         await axios
         .post(`https://irisminty.my.id/comments`, 
         {
             'title': title,
             'comment': comment,
             'rating': Number(rating),
-            'property_id': Number({idProp})
+            'property_id': Number(idProp)
         } 
           , {headers : {authorization: `bearer ${cookie.token}`}}
           )
