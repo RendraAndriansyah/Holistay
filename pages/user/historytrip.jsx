@@ -59,7 +59,7 @@ const Historytrip = () => {
                   <div className=" dropdown dropdown-bottom  rounded-box text-alta-dark">
                     <label
                       tabIndex={0}
-                      className="btn bg-slate-200 text-alta-dark m-1 btn hover:text-white hover:bg-alta-dark "
+                      className=" bg-slate-200 text-alta-dark m-1 btn hover:text-white hover:bg-alta-dark "
                     >
                       {item.checkin_date}{" "}
                       <HiOutlineSelector size={20} className="mx-1" />

@@ -57,7 +57,7 @@ export default function Home() {
             </h1>
           </div>
           <Image
-            src={"/../public/koper.png"}
+            src={"/public/koper.png"}
             width={1200}
             height={800}
             className="absolute left-0 top-32"
