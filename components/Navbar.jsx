@@ -59,7 +59,9 @@ const Navbar = () => {
           onClick={() => Router.push({ pathname: `/` })}
         >
           <Image
-            src={"/../public/logo-ALTA-v2@2x.png"}
+            src={
+              "https://trialtestbucket.s3.amazonaws.com/property/zenfv5OE3IGvgzwyuzso-logo-ALTA-v2%402x.png"
+            }
             width={90}
             height={40}
             alt={"logo"}
