@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import Swal from "sweetalert2";
 import Layout from "../../components/Layout";
-import { useRouter } from "next/router";
+import Router, { useRouter } from "next/router";
 
 import axios from "axios";
 import { useCookies } from "react-cookie";
@@ -257,12 +257,16 @@ const EditProperty = () => {
                     type="file"
                     placeholder=""
                     className="file:border-alta-dark input bg-alta-light px-3 file:bg-alta-dark file:text-white file:h-full file:left-0 caret-alta-dark text-alta-dark h-9 mx-16"
+                    defaultValue={proper?.image_thumbnail_url}
                     onChange={(e) => setFileGall(e.target.files[0])}
                   />
                 </label>
 
                 <div className="flex flex-row justify-end py-5 gap-5">
-                  <button className="border-2 border-alta-dark w-24 h-8 text-alta-dark rounded-md">
+                  <button
+                    className="border-2 border-alta-dark w-24 h-8 text-alta-dark rounded-md"
+                    onClick={() => Router.back()}
+                  >
                     Cancel
                   </button>
                   <button

@@ -21,6 +21,7 @@ export default function Home() {
     await axios
       .post(`https://irisminty.my.id/auth`, data)
       .then((res) => {
+        console.log(res.data);
         setCookie("name", res.data.data.full_name);
         setCookie("token", res.data.data.token);
         setCookie("id", res.data.data.id);
@@ -28,7 +29,7 @@ export default function Home() {
         Swal.fire({
           position: "center",
           icon: "success",
-          text: `${res.data.message}`,
+          text: "Anda Berhasil Login",
           showConfirmButton: false,
           timer: 2000,
         });
@@ -38,12 +39,14 @@ export default function Home() {
         console.log(err);
         Swal.fire({
           icon: "error",
-          text: `${err.data.message}`,
+          text: "Login belum berhasil! Coba lagi...",
         });
       });
     // console.log(data)
   };
 
+  console.log(email);
+  console.log(password);
   return (
     <div className="min-h-screen w-screen bg-alta-light grid place-items-center">
       <div className="rounded-[94px] w-[85vw] h-[90vh] bg-[#17345F] p-10 flex">
