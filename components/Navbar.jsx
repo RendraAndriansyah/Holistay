@@ -58,7 +58,7 @@ const Navbar = () => {
           className="hover:scale-110"
           onClick={() => Router.push({ pathname: `/` })}
         >
-          <Image
+          <img
             src={
               "https://trialtestbucket.s3.amazonaws.com/property/zenfv5OE3IGvgzwyuzso-logo-ALTA-v2%402x.png"
             }
