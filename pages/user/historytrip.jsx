@@ -45,7 +45,7 @@ const Historytrip = () => {
         <div className="border-b-2"></div>
         {list.map((item) => {
           return (
-            <div className="hover:bg-slate-200">
+            <div className="hover:bg-slate-200" key={item.id}>
               <div className="grid">
                 <h1
                   className="text-alta-dark text-2xl font-bold my-2"
