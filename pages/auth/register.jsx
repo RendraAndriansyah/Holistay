@@ -51,8 +51,8 @@ export default function Register() {
               Create new Experience with Airbnb
             </h1>
           </div>
-          <Image
-            src={"/../public/koper.png"}
+          <img
+            src="/koper.png"
             width={1200}
             height={800}
             className="absolute left-46 top-24"
